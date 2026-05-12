@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About</title>
+  <meta name="description" content="DESConomic Review — student-led economic journalism at DESS Sixth Form. Independent reporting, data, and opinion.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    /* ===== VARIABLES ===== */
+    :root{
+      --accent:#C1121F;
+      --accent-dark:#780000;
+      --bg:#ffffff;
+      --page-bg:#FAF8F5;
+      --text:#0B0B0B;
+      --muted:#6B6B6B;
+      --charcoal:#1F1F1F;
+      --max-width:1100px;
+    }
+
+    /* ===== RESET & BASE ===== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    html,body{height:100%}
+    body{
+      font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      color:var(--text);background:var(--page-bg);line-height:1.7;
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    }
+    h1,h2,h3,h4{font-family:'Merriweather',serif;line-height:1.2}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
+
+    /* ===== ANNOUNCEMENT BAR ===== */
+    .announce-bar{background:var(--charcoal);color:#fff;text-align:center;font-size:11px;font-weight:600;padding:6px 0;letter-spacing:.4px}
+    .ticker-item{display:none}
+    .ticker-active{display:inline}
+
+    /* ===== HEADER ===== */
+    header{background:#fff;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--accent)}
+    .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:relative}
+    .brand{display:flex;align-items:baseline;gap:10px}
+    .brand a{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+    .mast{font-family:'Merriweather',serif;font-weight:900;color:var(--accent);font-size:26px;letter-spacing:.5px}
+    .tag{font-weight:700;font-size:15px;color:#222}
+    nav{display:flex;gap:28px;align-items:center}
+    nav a{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.3px;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .25s ease}
+    nav a:hover{color:var(--text)}
+    nav a.active{color:var(--text);border-bottom-color:var(--accent)}
+    .menu-toggle{display:none;border:0;background:transparent;font-size:22px;cursor:pointer;padding:4px 8px}
+
+    /* Mobile nav */
+    nav.nav-open{
+      display:flex !important;flex-direction:column;position:absolute;
+      top:100%;left:0;right:0;background:#fff;border-bottom:2px solid var(--accent);
+      box-shadow:0 12px 32px rgba(0,0,0,.1);padding:8px 24px;gap:0;z-index:100;
+    }
+    nav.nav-open a{padding:16px 0;border-bottom:1px solid #f0f0f0;font-size:15px;width:100%;text-transform:none;letter-spacing:0}
+    nav.nav-open a:last-child{border-bottom:none}
+
+    /* ===== HERO ===== */
+    .about-hero{
+      background:var(--charcoal);color:#fff;padding:100px 24px 90px;text-align:center;
+      position:relative;overflow:hidden;
+    }
+    .about-hero::before{
+      content:'';position:absolute;inset:0;
+      background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px);
+      background-size:20px 20px;pointer-events:none;
+    }
+    .about-hero .hero-inner{position:relative;max-width:720px;margin:0 auto}
+    .about-hero h1{
+      font-size:52px;font-weight:900;letter-spacing:-.5px;margin:0 0 20px;line-height:1.08;
+    }
+    .about-hero p{
+      font-family:'Merriweather',serif;font-style:italic;font-weight:700;
+      color:var(--accent);font-size:18px;line-height:1.5;margin:0;
+    }
+
+    /* ===== SECTION SPACING ===== */
+    .section{padding:80px 0}
+    .section + .section{border-top:1px solid #e4e0dc}
+    .section-label{
+      font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      color:var(--accent);margin:0 0 12px;
+    }
+    .section-title{
+      font-size:32px;font-weight:900;margin:0 0 20px;color:var(--text);line-height:1.15;
+    }
+
+    /* ===== OUR STORY ===== */
+    .story-block{
+      max-width:720px;margin:0 auto;
+      border-left:4px solid var(--accent);padding-left:32px;
+    }
+    .story-block p{font-size:17px;color:#333;margin:0 0 24px;line-height:1.8}
+    .story-block p:last-child{margin-bottom:0}
+    .story-block p:first-child::first-letter{
+      font-family:'Merriweather',serif;font-size:4em;font-weight:900;
+      float:left;line-height:.75;margin:6px 12px 0 0;color:var(--accent);
+    }
+
+    /* ===== VALUES ===== */
+    .values-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:48px;
+      max-width:960px;margin:0 auto;
+    }
+    .value-card{position:relative;padding-top:48px}
+    .value-number{
+      position:absolute;top:-8px;left:0;
+      font-family:'Merriweather',serif;font-size:80px;font-weight:900;
+      color:rgba(193,18,31,.07);line-height:1;pointer-events:none;
+      user-select:none;
+    }
+    .value-card h3{
+      font-size:18px;font-weight:900;margin:0 0 10px;position:relative;
+    }
+    .value-card p{
+      color:var(--muted);font-size:14px;line-height:1.65;margin:0;position:relative;
+    }
+
+    /* ===== TEAM MASTHEAD ===== */
+    .team-grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:32px;
+    }
+    .team-card{
+      background:#fff;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease;
+    }
+    .team-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 16px 48px rgba(0,0,0,.1);
+    }
+    .team-avatar{
+      width:100%;aspect-ratio:1/1;background:#e8e8e8;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .team-avatar img{
+      width:100%;height:100%;object-fit:cover;object-position:top center;
+      filter:grayscale(100%);transition:filter .4s ease;
+    }
+    .team-card:hover .team-avatar img{filter:grayscale(0)}
+    .team-avatar svg{width:100%;height:100%}
+    .team-info{padding:20px}
+    .team-info h3{font-size:16px;font-weight:900;margin:0 0 4px}
+    .team-info .role{
+      font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;
+      letter-spacing:1.2px;margin:0 0 8px;display:block;
+    }
+    .team-info p{color:var(--muted);font-size:13px;line-height:1.55;margin:0}
+
+    /* ===== JOIN CTA ===== */
+    .join-banner{
+      background:var(--charcoal);color:#fff;padding:80px 24px;text-align:center;
+      position:relative;overflow:hidden;
+    }
+    .join-banner::before{
+      content:'';position:absolute;inset:0;
+      background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);
+      background-size:18px 18px;pointer-events:none;
+    }
+    .join-banner .join-inner{position:relative;max-width:560px;margin:0 auto}
+    .join-banner h2{font-size:36px;font-weight:900;margin:0 0 14px}
+    .join-banner p{color:rgba(255,255,255,.75);font-size:16px;line-height:1.6;margin:0 0 28px}
+    .btn-cta{
+      display:inline-block;background:var(--accent);color:#fff;font-weight:700;
+      font-size:15px;padding:14px 36px;border:0;cursor:pointer;
+      letter-spacing:.3px;transition:background .25s ease,transform .2s ease;
+      font-family:inherit;
+    }
+    .btn-cta:hover{background:var(--accent-dark);transform:translateY(-1px)}
+    .btn-cta span{margin-left:8px;transition:margin-left .2s ease}
+    .btn-cta:hover span{margin-left:12px}
+
+    /* ===== CONTACT ===== */
+    .contact-section{
+      display:grid;grid-template-columns:1fr 1fr;gap:60px;
+      align-items:start;
+    }
+    .contact-info h3{font-size:24px;font-weight:900;margin:0 0 16px}
+    .contact-info > p{color:var(--muted);font-size:15px;line-height:1.7;margin:0 0 32px}
+    .contact-item{margin-bottom:24px}
+    .contact-item .ci-label{
+      font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;
+      color:var(--accent);margin:0 0 4px;display:block;
+    }
+    .contact-item span:last-child{font-size:16px;font-weight:600;color:var(--text)}
+
+    .contact-form h3{font-size:24px;font-weight:900;margin:0 0 24px}
+    .contact-form label{
+      display:block;font-size:12px;font-weight:700;color:var(--muted);
+      text-transform:uppercase;letter-spacing:.8px;margin:0 0 6px;
+    }
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;padding:12px 14px;border:1px solid #d8d4d0;background:#fff;
+      font-size:15px;font-family:inherit;color:var(--text);
+      transition:border-color .25s ease,box-shadow .25s ease;
+      border-radius:0;-webkit-appearance:none;appearance:none;
+    }
+    .contact-form input{margin-bottom:20px}
+    .contact-form textarea{resize:vertical;min-height:120px;margin-bottom:24px}
+    .contact-form input:focus,.contact-form textarea:focus{
+      outline:none;border-color:var(--accent);
+      box-shadow:0 0 0 3px rgba(193,18,31,.1);
+    }
+    .contact-form input::placeholder,.contact-form textarea::placeholder{color:#aaa}
+    .contact-form button{
+      width:100%;background:var(--accent);color:#fff;border:0;
+      padding:14px;font-size:15px;font-weight:700;cursor:pointer;
+      font-family:inherit;letter-spacing:.3px;
+      transition:background .25s ease;display:flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .contact-form button:hover{background:var(--accent-dark)}
+    .contact-form button svg{width:16px;height:16px;fill:#fff;transition:transform .2s ease}
+    .contact-form button:hover svg{transform:translateX(4px)}
+
+    /* ===== FOOTER ===== */
+    .site-footer{background:var(--charcoal);color:#d4d4d4;font-size:14px;line-height:1.6;border-top:4px solid var(--accent)}
+    .footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;padding:48px 0 36px}
+    .footer-newsletter h3,.footer-about h3,.footer-nav h3{color:#fff;font-size:16px;font-weight:800;margin:0 0 12px}
+    .footer-newsletter p,.footer-about p{margin:0 0 14px;color:#b0b0b0;font-size:13px}
+    .footer-subscribe{display:flex;gap:8px}
+    .footer-subscribe input[type="email"]{
+      flex:1;padding:10px 12px;border:1px solid #444;background:#2a2a2a;color:#eee;
+      font-size:14px;font-family:inherit;transition:border-color .2s,box-shadow .2s;
+      border-radius:0;-webkit-appearance:none;appearance:none;
+    }
+    .footer-subscribe input[type="email"]::placeholder{color:#777}
+    .footer-subscribe input[type="email"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(193,18,31,.25)}
+    .footer-subscribe button{
+      background:var(--accent);color:#fff;border:0;padding:10px 20px;
+      font-weight:700;font-size:14px;cursor:pointer;transition:background .2s;
+      white-space:nowrap;font-family:inherit;
+    }
+    .footer-subscribe button:hover{background:var(--accent-dark)}
+    .footer-badge{display:inline-flex;align-items:center;gap:8px;background:#2a2a2a;padding:8px 14px;margin-top:4px}
+    .footer-badge-icon{width:28px;height:28px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .footer-badge-icon svg{width:16px;height:16px;fill:#fff}
+    .footer-badge span{color:#ccc;font-size:12px;font-weight:600;letter-spacing:.3px}
+    .footer-nav-lists{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .footer-nav-lists h4{color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px}
+    .footer-nav-lists ul{list-style:none;margin:0;padding:0}
+    .footer-nav-lists li{margin-bottom:8px}
+    .footer-nav-lists a{color:#b0b0b0;text-decoration:none;font-size:13px;font-weight:600;transition:color .2s}
+    .footer-nav-lists a:hover{color:#fff}
+    .footer-bottom{border-top:1px solid #333;padding:16px 0}
+    .footer-bottom-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-contact{font-size:12px;color:#888}
+    .footer-contact span{margin-right:14px}
+    .footer-contact span:last-child{margin-right:0}
+    .footer-policies{display:flex;gap:16px}
+    .footer-policies a{color:#888;text-decoration:none;font-size:12px;font-weight:600;transition:color .2s}
+    .footer-policies a:hover{color:#fff}
+    .footer-copyright{font-size:12px;color:#888}
+
+    /* ===== BACK TO TOP ===== */
+    #backToTop{
+      position:fixed;bottom:24px;right:24px;width:44px;height:44px;
+      background:var(--charcoal);color:#fff;border:0;font-size:20px;
+      cursor:pointer;opacity:0;transition:opacity .3s ease;z-index:90;
+      display:flex;align-items:center;justify-content:center;
+    }
+    #backToTop:hover{background:var(--accent)}
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:960px){
+      header nav{display:none}
+      .menu-toggle{display:block}
+      .mast{font-size:22px}
+      .tag{font-size:14px}
+      .about-hero{padding:72px 24px 64px}
+      .about-hero h1{font-size:36px}
+      .values-grid{grid-template-columns:1fr;gap:36px;max-width:480px}
+      .team-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+      .contact-section{grid-template-columns:1fr;gap:40px}
+      .footer-top{grid-template-columns:1fr 1fr;gap:28px}
+      .footer-newsletter{grid-column:1 / -1}
+      .footer-subscribe{max-width:480px}
+    }
+    @media(max-width:600px){
+      .about-hero{padding:56px 18px 48px}
+      .about-hero h1{font-size:28px}
+      .about-hero p{font-size:15px}
+      .section{padding:56px 0}
+      .section-title{font-size:26px}
+      .story-block{padding-left:20px}
+      .story-block p{font-size:15px}
+      .story-block p:first-child::first-letter{font-size:3em;margin:4px 8px 0 0}
+      .team-grid{grid-template-columns:1fr;gap:20px;max-width:360px;margin:0 auto}
+      .join-banner{padding:56px 18px}
+      .join-banner h2{font-size:26px}
+      .value-number{font-size:56px}
+      .footer-top{grid-template-columns:1fr;gap:24px;padding:28px 0 24px}
+      .footer-subscribe{flex-direction:column}
+      .footer-subscribe button{width:100%;text-align:center}
+      .footer-bottom-inner{flex-direction:column;text-align:center;gap:10px}
+      .footer-contact span{display:block;margin:0 0 4px}
+      .footer-policies{justify-content:center;flex-wrap:wrap}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="announce-bar"><span class="ticker-item ticker-active">Student Publication &middot; Est. 2021</span><span class="ticker-item">New article every week</span><span class="ticker-item">desconomicreview@gmail.com</span></div>
+    <div class="container top">
+      <div class="brand">
+        <a href="index.html">
+          <div class="mast">DESConomic</div>
+          <div class="tag">Review</div>
+        </a>
+      </div>
+      <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">&#9776;</button>
+      <nav id="siteNav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="articles.html">Articles</a>
+        <a href="legacy.html">Legacy</a>
+        <a href="about.html" class="active">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="about-hero">
+      <div class="hero-inner">
+        <h1>Student-led economic journalism</h1>
+      </div>
+    </section>
+
+    <!-- ===== OUR STORY ===== -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">How It All Started</h2>
+        <div class="story-block">
+          <p>The DESConomic Review was founded in 2021 by a small group of students who believed economics should not only exist in textbooks. They wanted to create a place where students could apply economic ideas to real events, writing about developments in the UAE, global markets, and international politics. What began as a small newsletter within the school community gradually developed into a full publication with a team of writers, editors, and designers who research, write, and edit every article themselves.</p>
+          <p>The publication focuses on analysing real world events through an economic lens. Articles apply ideas from economic theory to current issues, using concepts such as loss aversion from behavioural economics and Nash equilibrium from game theory to explain developments in markets, policy, and international relations. The DESConomic Review remains entirely student run and continues the founders' aim of connecting classroom economics with the real world.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== VALUES ===== -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">Our Principles</p>
+        <h2 class="section-title">What We Stand For</h2>
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-number">01</div>
+            <h3>Data-Driven</h3>
+            <p>Every claim is backed by numbers. We survey, collect, and analyse real data from our school community.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-number">02</div>
+            <h3>Student Voices</h3>
+            <p>We amplify the perspectives that matter — from the student council to the person in the lunch queue.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-number">03</div>
+            <h3>Transparency</h3>
+            <p>We ask the hard questions about where money goes and who makes the decisions that affect us all.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TEAM ===== -->
+    <section class="section">
+      <div class="container">
+        <p class="section-label">The Masthead</p>
+        <h2 class="section-title">Meet the Team</h2>
+        <div class="team-grid">
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <img src="images/kushal.jpg" alt="Kushal Pagarani">
+            </div>
+            <div class="team-info">
+              <h3>Kushal Pagarani</h3>
+              <span class="role">Chief Editor</span>
+              <p>Oversees all content and editorial direction. Passionate about making economics understandable.</p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <img src="images/yash.jpg" alt="Yashas Hans">
+            </div>
+            <div class="team-info">
+              <h3>Yashas Hans</h3>
+              <span class="role">Chief Editor</span>
+              <p>Co-leads the editorial team, ensuring every piece meets the highest standards of quality and accuracy.</p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <img src="images/prithvi.jpg" alt="Prithvi Malik">
+            </div>
+            <div class="team-info">
+              <h3>Prithvi Malik</h3>
+              <span class="role">Head of Design</span>
+              <p>Drives the creative vision of the publication, shaping its visual identity and storytelling approach.</p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#e8e8e8"/><circle cx="50" cy="38" r="16" fill="#ccc"/><ellipse cx="50" cy="85" rx="26" ry="20" fill="#ccc"/></svg>
+            </div>
+            <div class="team-info">
+              <h3>Jordan T.</h3>
+              <span class="role">Data Editor</span>
+              <p>Runs the Data Club column. Turns spreadsheets into stories that everyone can understand.</p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#e8e8e8"/><circle cx="50" cy="38" r="16" fill="#ccc"/><ellipse cx="50" cy="85" rx="26" ry="20" fill="#ccc"/></svg>
+            </div>
+            <div class="team-info">
+              <h3>Sam R.</h3>
+              <span class="role">Opinion Editor</span>
+              <p>Curates the opinion section and writes the popular editorial columns every fortnight.</p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#e8e8e8"/><circle cx="50" cy="38" r="16" fill="#ccc"/><ellipse cx="50" cy="85" rx="26" ry="20" fill="#ccc"/></svg>
+            </div>
+            <div class="team-info">
+              <h3>Maya L.</h3>
+              <span class="role">Designer</span>
+              <p>Creates all the graphics, charts, and visual layouts for the publication.</p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#e8e8e8"/><circle cx="50" cy="38" r="16" fill="#ccc"/><ellipse cx="50" cy="85" rx="26" ry="20" fill="#ccc"/></svg>
+            </div>
+            <div class="team-info">
+              <h3>Chris W.</h3>
+              <span class="role">Web Developer</span>
+              <p>Built and maintains the DESConomic Review website. Keeps everything running smoothly.</p>
+            </div>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#e8e8e8"/><circle cx="50" cy="38" r="16" fill="#ccc"/><ellipse cx="50" cy="85" rx="26" ry="20" fill="#ccc"/></svg>
+            </div>
+            <div class="team-info">
+              <h3>Fatima N.</h3>
+              <span class="role">Photographer</span>
+              <p>Captures school life on camera. Her photo essays have become a signature of the Review.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== JOIN CTA ===== -->
+    <section class="join-banner">
+      <div class="join-inner">
+        <h2>Want to Join the Team?</h2>
+        <p>We're always looking for writers, data analysts, designers, and photographers. No experience needed — just curiosity.</p>
+        <a href="#contactForm" class="btn-cta">Get In Touch<span>&darr;</span></a>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section" id="contactForm">
+      <div class="container">
+        <p class="section-label">Reach Out</p>
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="contact-section">
+
+          <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>Have a story tip, want to join the team, or just want to say hello? We'd love to hear from you.</p>
+            <div class="contact-item">
+              <span class="ci-label">Email</span>
+              <span>desconomicreview@gmail.com</span>
+            </div>
+            <div class="contact-item">
+              <span class="ci-label">Location</span>
+              <span>LF7, Sixth Form, DESS College, Academic City, Dubai, UAE</span>
+            </div>
+            <div class="contact-item">
+              <span class="ci-label">Meetings</span>
+              <span>Tuesdays, 12:20 - 1:00 PM</span>
+            </div>
+            <div class="contact-item">
+              <span class="ci-label">Social</span>
+              <span>@desconomic on social media (placeholder)</span>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <h3>Send us a Message</h3>
+            <form id="contactForm">
+              <label for="contactName">Your Name</label>
+              <input type="text" id="contactName" name="from_name" placeholder="e.g. Jane Doe" required>
+
+              <label for="contactEmail">Your Email</label>
+              <input type="email" id="contactEmail" name="from_email" placeholder="your.email@school.edu" required>
+
+              <label for="contactSubject">Subject</label>
+              <input type="text" id="contactSubject" name="subject" placeholder="e.g. Story tip, Join the team, Feedback" required>
+
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" name="message" placeholder="Write your message here..." required></textarea>
+
+              <button type="submit" id="contactBtn">Send Message <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-7-7 7 7-7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-top">
+      <section class="footer-newsletter" aria-label="Newsletter signup">
+        <h3>Stay Informed</h3>
+        <p>Get the latest from the DESConomic Review delivered to your inbox every week — articles, data snapshots, and student commentary.</p>
+        <form class="footer-subscribe" id="subscribeForm">
+          <input type="email" id="subscribeEmail" placeholder="you@school.edu" aria-label="Email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </section>
+      <section class="footer-about" aria-label="About the publication">
+        <h3>DESConomic Review</h3>
+        <p>Student-led economic journalism — researched, written, and edited entirely by students since 2024. Independent, curious, and committed to the truth.</p>
+        <div class="footer-badge">
+          <div class="footer-badge-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          </div>
+          <span>Student Publication&ensp;&middot;&ensp;Est. 2021</span>
+        </div>
+      </section>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <h3>Quick Links</h3>
+        <div class="footer-nav-lists">
+          <div>
+            <h4>Sections</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="articles.html">Articles</a></li>
+              <li><a href="legacy.html">Legacy</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#">Archive</a></li>
+              <li><a href="#">Masthead</a></li>
+              <li><a href="#">Data Hub</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <div class="footer-contact">
+          <span>📍 LF7, Sixth Form, DESS College, Academic City, Dubai, UAE</span>
+          <span>📧 desconomicreview@gmail.com</span>
+        </div>
+        <div class="footer-policies">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Sitemap</a>
+          <a href="#">Accessibility</a>
+        </div>
+        <div class="footer-copyright">
+          &copy; 2026 DESConomic Review. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <button id="backToTop" aria-label="Back to top">&uarr;</button>
+  <script>
+    // ── EmailJS Contact Form ──
+    // Replace these three values with your own from https://www.emailjs.com
+    var EMAILJS_PUBLIC_KEY = 'rOuq0QgSUg3j7gyJi';
+    var EMAILJS_SERVICE_ID = 'service_yhehlan';
+    var EMAILJS_TEMPLATE_ID = 'template_nwhhios';
+
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('contactBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      var params = {
+        from_name: document.getElementById('contactName').value,
+        from_email: document.getElementById('contactEmail').value,
+        subject: document.getElementById('contactSubject').value,
+        message: document.getElementById('contactMessage').value
+      };
+
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+        .then(function() {
+          btn.textContent = 'Message Sent ✓';
+          document.getElementById('contactForm').reset();
+          setTimeout(function() {
+            btn.disabled = false;
+            btn.innerHTML = 'Send Message <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-7-7 7 7-7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          }, 3000);
+        }, function(error) {
+          btn.textContent = 'Failed — try again';
+          btn.disabled = false;
+          console.error('EmailJS error:', error);
+          setTimeout(function() {
+            btn.innerHTML = 'Send Message <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-7-7 7 7-7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          }, 3000);
+        });
+    });
+  </script>
+  <script>
+    window.addEventListener('scroll',function(){document.getElementById('backToTop').style.opacity=window.scrollY>400?'1':'0';});
+    document.getElementById('backToTop').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    (function(){var items=document.querySelectorAll('.ticker-item'),i=0;if(items.length>1){setInterval(function(){items[i].classList.remove('ticker-active');i=(i+1)%items.length;items[i].classList.add('ticker-active');},3000);}})();
+    // Prefetch articles CSV so Home page loads instantly
+    (function(){var u='https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?output=csv';fetch(u).then(function(r){return r.text();}).then(function(t){try{localStorage.setItem('descCSV',t);}catch(e){}}).catch(function(){});})();
+  </script>
+</body>
+</html>

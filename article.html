@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Article</title>
+  <meta name="description" content="DESConomic Review — student-led economic journalism at DESS Sixth Form. Independent reporting, data, and opinion.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root{
+      --accent:#C1121F;
+      --accent-dark:#780000;
+      --bg:#ffffff;
+      --page-bg:#FAF8F5;
+      --text:#0B0B0B;
+      --muted:#6B6B6B;
+      --charcoal:#1F1F1F;
+      --card-bg:#FAF8F5;
+      --max-width:1100px;
+    }
+    /* ===== RESET & BASE ===== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    html,body{height:100%}
+    body{
+      font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      color:var(--text);background:var(--page-bg);line-height:1.7;
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    }
+    h1,h2,h3,h4{font-family:'Merriweather',serif;line-height:1.2}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
+    main{position:relative}
+
+    /* ===== ANNOUNCEMENT BAR ===== */
+    .announce-bar{background:var(--charcoal);color:#fff;text-align:center;font-size:11px;font-weight:600;padding:6px 0;letter-spacing:.4px}
+    .ticker-item{display:none}
+    .ticker-active{display:inline}
+
+    /* ===== HEADER ===== */
+    header{background:#fff;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--accent)}
+    .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:relative}
+    .brand{display:flex;align-items:baseline;gap:10px}
+    .brand a{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+    .mast{font-family:'Merriweather',serif;font-weight:900;color:var(--accent);font-size:26px;letter-spacing:.5px}
+    .tag{font-weight:700;font-size:15px;color:#222}
+    nav{display:flex;gap:28px;align-items:center}
+    nav a{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.3px;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .25s ease}
+    nav a:hover{color:var(--text)}
+    nav a.active{color:var(--text);border-bottom-color:var(--accent)}
+    .menu-toggle{display:none;border:0;background:transparent;font-size:22px;cursor:pointer;padding:4px 8px}
+
+    /* ===== Article Header ===== */
+    .article-header{
+      max-width:780px;margin:0 auto;padding:40px 18px 0;text-align:center;
+    }
+    .article-header .kicker{
+      color:var(--accent);font-weight:700;font-size:12px;letter-spacing:1.5px;
+      text-transform:uppercase;margin-bottom:14px;
+      background:rgba(193,18,31,0.08);padding:4px 14px;border-radius:2px;display:inline-block;
+    }
+    .article-header h1{
+      font-family:'Merriweather', serif;font-weight:900;font-size:40px;
+      line-height:1.15;margin:0 0 18px;color:var(--text);
+    }
+    .article-header .standfirst{
+      font-size:18px;line-height:1.55;color:var(--muted);margin:0 0 18px;
+      max-width:640px;margin-left:auto;margin-right:auto;
+    }
+    .article-header .byline{
+      font-size:14px;color:var(--muted);font-weight:600;margin:0;
+    }
+    .article-header .byline span{color:var(--text)}
+
+    /* Breadcrumb */
+    .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:14px}
+    .breadcrumb a{color:var(--muted);text-decoration:none;font-weight:600}
+    .breadcrumb a:hover{color:var(--accent)}
+    .breadcrumb .sep{margin:0 6px;font-size:11px}
+
+    /* Author block */
+    .author-block{display:flex;align-items:center;gap:12px;justify-content:center;margin:18px 0 4px}
+    .author-avatar{width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;font-family:'Merriweather',serif;flex-shrink:0}
+    .author-info{text-align:left}
+    .author-info .name{font-weight:700;font-size:15px;color:var(--text);margin:0;line-height:1.3}
+    .author-info .role{font-size:12px;color:var(--muted);margin:0;line-height:1.4}
+
+    /* Reading time */
+    .reading-time{font-weight:500}
+
+    /* Category pill in header area */
+    .article-header .article-category-pill{margin-top:14px}
+
+    /* ===== Share Sidebar (desktop) ===== */
+    .share-sidebar{
+      position:fixed;left:calc(50% - 420px);top:50%;transform:translateY(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:2px;z-index:40;
+      opacity:0;pointer-events:none;transition:opacity 0.3s ease;
+    }
+    .share-sidebar.visible{opacity:1;pointer-events:auto}
+    .share-sb-btn{
+      width:40px;height:40px;min-height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+      background:#fff;border:1px solid #ddd;cursor:pointer;transition:all 0.15s;padding:0;
+    }
+    .share-sb-btn:hover{background:#f5f5f5;border-color:#bbb}
+    .share-sb-btn svg{width:16px;height:16px;fill:var(--text)}
+    .share-sb-label{font-size:8px;color:var(--muted);text-align:center;margin-top:2px;margin-bottom:6px;font-weight:600;letter-spacing:0.3px;flex-shrink:0}
+    .scroll-progress{margin-top:12px;width:36px;height:36px;flex-shrink:0}
+    .scroll-progress svg{width:100%;height:100%;transform:rotate(-90deg)}
+    .scroll-progress .progress-bg{fill:none;stroke:#e0e0e0;stroke-width:2.5}
+    .scroll-progress .progress-fill{fill:none;stroke:var(--text);stroke-width:2.5;stroke-dasharray:100;stroke-dashoffset:100;stroke-linecap:round;transition:stroke-dashoffset 0.15s,stroke 0.3s}
+    .scroll-progress .check-icon{transform:rotate(90deg);transform-origin:18px 18px}
+
+    /* ===== Byline Below Image ===== */
+    .article-byline-below{max-width:680px;margin:0 auto;padding:0 18px}
+    .article-byline-below hr{border:none;border-top:1px solid #e0e0e0;margin:20px 0 16px}
+    .article-byline-below .author-block{justify-content:flex-start;margin:0 0 6px}
+    .article-byline-below .byline{font-size:14px;color:var(--muted);font-weight:600;margin:0}
+    .article-byline-below .byline span{color:var(--text)}
+
+    /* ===== Hero Image ===== */
+    .article-hero{
+      max-width:680px;margin:28px auto 0;padding:0 18px;
+    }
+    .article-hero-img{
+      width:100%;background:linear-gradient(135deg,#e8e0d8,#d4cdc5);
+      border-radius:2px;overflow:hidden;
+    }
+    .article-hero-img img{width:100%;height:auto;display:block;border-radius:2px}
+    .article-hero figcaption{
+      font-size:13px;color:var(--muted);font-style:italic;margin-top:10px;text-align:center;
+    }
+
+    /* ===== Article Body ===== */
+    .article-body{
+      max-width:680px;margin:0 auto;padding:32px 18px 0;
+      font-size:17px;line-height:1.8;color:#222;
+    }
+    .article-body p{margin:0 0 22px}
+    .article-body h2{
+      font-family:'Merriweather', serif;font-size:24px;font-weight:800;
+      margin:40px 0 16px;line-height:1.2;color:var(--text);
+    }
+    .article-body h2::after{content:'';display:block;width:40px;height:3px;background:var(--accent);margin-top:8px}
+    .article-body h3{
+      font-family:'Merriweather', serif;font-size:20px;font-weight:700;
+      margin:32px 0 12px;line-height:1.25;color:var(--text);
+    }
+    .article-body ul,.article-body ol{margin:0 0 22px;padding-left:24px}
+    .article-body li{margin-bottom:8px}
+    .article-body a{color:var(--accent);text-decoration:underline;font-weight:600}
+    .article-body a:hover{color:var(--accent-dark)}
+
+    /* Pull quote */
+    .pull-quote{
+      border-left:4px solid var(--accent);
+      padding:4px 0 4px 28px;margin:36px 0;
+    }
+    .pull-quote p{
+      font-family:'Merriweather', serif;font-size:22px;font-style:italic;
+      line-height:1.45;color:var(--text);margin:0 0 8px;font-weight:700;
+    }
+    .pull-quote cite{
+      font-style:normal;font-family:'Inter', sans-serif;font-size:13px;
+      color:var(--muted);font-weight:600;
+    }
+
+    /* ===== Article Footer (tags + share) ===== */
+    .article-end{
+      max-width:680px;margin:0 auto;padding:0 18px 36px;
+    }
+    .article-divider{
+      border:none;border-top:3px solid var(--accent);margin:40px 0 28px;
+    }
+    .article-meta-row{
+      display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;
+    }
+    .article-meta-row .label{
+      font-weight:700;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;min-width:50px;
+    }
+    .tag-pill{
+      display:inline-block;background:#fff;border:1px solid #ddd;border-radius:2px;
+      padding:5px 14px;font-size:13px;font-weight:600;color:var(--text);
+      text-decoration:none;transition:all 0.2s;
+    }
+    .tag-pill:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .share-btn{
+      display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #ddd;
+      border-radius:2px;padding:6px 16px;font-size:13px;font-weight:600;color:var(--text);
+      cursor:pointer;transition:all 0.2s;font-family:inherit;
+    }
+    .share-btn:hover{background:var(--charcoal);color:#fff;border-color:var(--charcoal)}
+
+    /* ===== More Articles ===== */
+    .more-articles{
+      max-width:var(--max-width);margin:0 auto;padding:0 18px 40px;
+    }
+    .more-articles h2{
+      font-weight:800;font-size:22px;margin:0 0 20px;
+    }
+    .more-articles h2::after{content:'';display:block;width:40px;height:3px;background:var(--accent);margin-top:8px}
+    .more-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+    }
+    .article-card{
+      background:#fff;border-radius:2px;overflow:hidden;
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);transition:transform 0.15s, box-shadow 0.15s;
+    }
+    .article-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+    .article-card:not(:has(.article-card-media)){border-left:3px solid var(--accent)}
+    .article-card-media{
+      height:180px;background:linear-gradient(135deg,#e8e0d8,#d4cdc5);display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
+    }
+    .article-card-media svg{width:100%;height:100%}
+    .article-card-body{padding:16px}
+    .article-card-body .kicker{
+      color:var(--accent);font-weight:700;font-size:11px;
+      letter-spacing:1px;margin-bottom:6px;text-transform:uppercase;
+      background:rgba(193,18,31,0.08);padding:2px 8px;border-radius:2px;display:inline-block;
+    }
+    .article-card-body h3{margin:0 0 8px;font-size:17px;line-height:1.25}
+    .article-card-body h3 a{color:var(--text);text-decoration:none}
+    .article-card-body h3 a:hover{color:var(--accent)}
+    .article-card-body .byline{color:var(--muted);font-size:12px;margin-bottom:8px}
+    .article-card-body .excerpt{color:#444;font-size:13px;line-height:1.5;margin:0}
+    .article-card-body .card-date{color:var(--muted);font-size:12px;margin:0}
+
+    /* ===== FOOTER ===== */
+    .site-footer{background:var(--charcoal);color:#d4d4d4;font-size:14px;line-height:1.6;border-top:4px solid var(--accent)}
+    .footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;padding:48px 0 36px}
+    .footer-newsletter h3,.footer-about h3,.footer-nav h3{color:#fff;font-size:16px;font-weight:800;margin:0 0 12px}
+    .footer-newsletter p,.footer-about p{margin:0 0 14px;color:#b0b0b0;font-size:13px}
+    .footer-subscribe{display:flex;gap:8px}
+    .footer-subscribe input[type="email"]{
+      flex:1;padding:10px 12px;border:1px solid #444;background:#2a2a2a;color:#eee;
+      font-size:14px;font-family:inherit;transition:border-color .2s,box-shadow .2s;
+      border-radius:0;-webkit-appearance:none;appearance:none;
+    }
+    .footer-subscribe input[type="email"]::placeholder{color:#777}
+    .footer-subscribe input[type="email"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(193,18,31,.25)}
+    .footer-subscribe button{
+      background:var(--accent);color:#fff;border:0;padding:10px 20px;
+      font-weight:700;font-size:14px;cursor:pointer;transition:background .2s;
+      white-space:nowrap;font-family:inherit;
+    }
+    .footer-subscribe button:hover{background:var(--accent-dark)}
+    .footer-badge{display:inline-flex;align-items:center;gap:8px;background:#2a2a2a;padding:8px 14px;margin-top:4px}
+    .footer-badge-icon{width:28px;height:28px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .footer-badge-icon svg{width:16px;height:16px;fill:#fff}
+    .footer-badge span{color:#ccc;font-size:12px;font-weight:600;letter-spacing:0.3px}
+    .footer-nav-lists{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .footer-nav-lists h4{color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px}
+    .footer-nav-lists ul{list-style:none;margin:0;padding:0}
+    .footer-nav-lists li{margin-bottom:8px}
+    .footer-nav-lists a{color:#b0b0b0;text-decoration:none;font-size:13px;font-weight:600;transition:color 0.2s}
+    .footer-nav-lists a:hover{color:#fff}
+    .footer-bottom{border-top:1px solid #333;padding:16px 0}
+    .footer-bottom-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-contact{font-size:12px;color:#888}
+    .footer-contact span{margin-right:14px}
+    .footer-contact span:last-child{margin-right:0}
+    .footer-policies{display:flex;gap:16px}
+    .footer-policies a{color:#888;text-decoration:none;font-size:12px;font-weight:600;transition:color 0.2s}
+    .footer-policies a:hover{color:#fff}
+    .footer-copyright{font-size:12px;color:#888}
+
+    /* Drop cap */
+    .article-body > p:first-child::first-letter {
+      font-family: 'Merriweather', serif; font-size: 4em; font-weight: 900;
+      float: left; line-height: 0.75; margin: 6px 10px 0 0; color: var(--accent);
+    }
+
+    /* Mobile nav */
+    nav.nav-open{
+      display:flex !important;flex-direction:column;position:absolute;
+      top:100%;left:0;right:0;background:#fff;border-bottom:2px solid var(--accent);
+      box-shadow:0 12px 32px rgba(0,0,0,.1);padding:8px 24px;gap:0;z-index:100;
+    }
+    nav.nav-open a{padding:16px 0;border-bottom:1px solid #f0f0f0;font-size:15px;width:100%;text-transform:none;letter-spacing:0}
+    nav.nav-open a:last-child{border-bottom:none}
+
+    /* ===== Responsive ===== */
+    @media (max-width:1060px){
+      .share-sidebar{display:none}
+    }
+    @media (max-width:960px){
+      .article-header h1{font-size:30px}
+      .article-hero-img{max-height:none}
+      .more-grid{grid-template-columns:1fr}
+      header nav{display:none}
+      .menu-toggle{display:block}
+      .mast{font-size:22px}
+      .tag{font-size:14px}
+      .footer-top{grid-template-columns:1fr 1fr;gap:28px}
+      .footer-newsletter{grid-column:1 / -1}
+      .footer-subscribe{max-width:480px}
+      .article-meta-row{gap:8px}
+      .share-btn{padding:6px 10px;font-size:12px}
+    }
+    @media (max-width:600px){
+      .more-grid{grid-template-columns:1fr}
+      .article-header{padding:28px 18px 0}
+      .article-header h1{font-size:24px}
+      .article-header .standfirst{font-size:15px}
+      .article-hero-img{max-height:none}
+      .article-body{font-size:15px;padding:24px 14px 0}
+      .article-body h2{font-size:20px}
+      .pull-quote{padding:4px 0 4px 18px;margin:24px 0}
+      .pull-quote p{font-size:17px}
+      .article-end{padding:0 14px 28px}
+      .tag-pill{padding:4px 10px;font-size:12px}
+      .footer-top{grid-template-columns:1fr;gap:24px;padding:28px 0 24px}
+      .footer-subscribe{flex-direction:column}
+      .footer-subscribe button{width:100%;text-align:center}
+      .footer-bottom-inner{flex-direction:column;text-align:center;gap:10px}
+      .footer-contact span{display:block;margin:0 0 4px}
+      .footer-policies{justify-content:center;flex-wrap:wrap}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- Announcement top bar -->
+    <div class="announce-bar"><span class="ticker-item ticker-active">Student Publication &middot; Est. 2021</span><span class="ticker-item">New article every week</span><span class="ticker-item">desconomicreview@gmail.com</span></div>
+
+    <div class="container top">
+      <div class="brand">
+        <a href="index.html">
+          <div class="mast">DESConomic</div>
+          <div class="tag">Review</div>
+        </a>
+      </div>
+      <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">&#9776;</button>
+      <nav id="siteNav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="articles.html" id="navArticles">Articles</a>
+        <a href="legacy.html" id="navLegacy">Legacy</a>
+        <a href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Share sidebar (desktop only) -->
+    <aside class="share-sidebar" id="shareSidebar">
+      <button class="share-sb-btn" title="Share on X" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(location.href),'_blank')">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </button>
+      <span class="share-sb-label">Post</span>
+      <button class="share-sb-btn" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),'_blank')">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </button>
+      <span class="share-sb-label">Share</span>
+      <button class="share-sb-btn" title="Share on LinkedIn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href),'_blank')">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </button>
+      <span class="share-sb-label">LinkedIn</span>
+      <button class="share-sb-btn" title="Share" onclick="if(navigator.share){navigator.share({url:location.href})}else{navigator.clipboard.writeText(location.href).then(function(){alert('Link copied!')})}">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
+      </button>
+      <span class="share-sb-label">Share</span>
+      <button class="share-sb-btn" title="Save article" onclick="this.classList.toggle('saved');this.querySelector('svg').style.fill=this.classList.contains('saved')?'var(--accent)':'var(--text)'">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+      </button>
+      <span class="share-sb-label">Save</span>
+      <div class="scroll-progress" title="Reading progress">
+        <svg viewBox="0 0 36 36">
+          <circle class="progress-bg" cx="18" cy="18" r="15.9" pathLength="100"/>
+          <circle id="progressFill" class="progress-fill" cx="18" cy="18" r="15.9" pathLength="100"/>
+          <path class="check-icon" d="M12 18l4 4 8-8" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </aside>
+
+    <!-- Article header (populated dynamically) -->
+    <div class="article-header" id="articleHeader">
+      <div id="articleSpinner" style="text-align:center;padding:60px 0;">
+        <div style="display:inline-block;width:40px;height:40px;border:4px solid #eee;border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+        <p style="color:var(--muted);font-size:14px;margin-top:12px;">Loading article&#8230;</p>
+      </div>
+      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+    </div>
+
+    <!-- Error state (hidden by default) -->
+    <div id="articleError" style="display:none;text-align:center;padding:60px 18px;">
+      <p style="font-size:22px;font-weight:700;margin:0 0 8px;">Article not found</p>
+      <p style="color:var(--muted);font-size:14px;margin:0 0 16px;">The article you&#8217;re looking for doesn&#8217;t exist or couldn&#8217;t be loaded.</p>
+      <a href="articles.html" style="color:var(--accent);font-weight:700;text-decoration:none;">&larr; Back to all articles</a>
+    </div>
+
+    <!-- Hero image (populated dynamically) -->
+    <figure class="article-hero" id="articleHero" style="display:none;">
+      <div class="article-hero-img">
+        <img id="articleImg" src="" alt="">
+      </div>
+    </figure>
+
+    <!-- Byline below image -->
+    <div id="articleByline" class="article-byline-below" style="display:none;"></div>
+
+    <!-- Article body (populated dynamically) -->
+    <article class="article-body" id="articleBody" style="display:none;"></article>
+
+    <!-- Article end divider -->
+    <div class="article-end" id="articleEnd" style="display:none;">
+      <hr class="article-divider">
+    </div>
+
+    <!-- More articles (populated dynamically) -->
+    <section class="more-articles" id="moreArticles" style="display:none;">
+      <h2>More Articles by the DESConomic Review</h2>
+      <div class="more-grid" id="moreGrid"></div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-top">
+      <section class="footer-newsletter" aria-label="Newsletter signup">
+        <h3>Stay Informed</h3>
+        <p>Get the latest from the DESConomic Review delivered to your inbox every week — articles, data snapshots, and student commentary.</p>
+        <form class="footer-subscribe" id="subscribeForm">
+          <input type="email" id="subscribeEmail" placeholder="you@school.edu" aria-label="Email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </section>
+      <section class="footer-about" aria-label="About the publication">
+        <h3>DESConomic Review</h3>
+        <p>Student-led economic journalism — researched, written, and edited entirely by students since 2021. Independent, curious, and committed to the truth.</p>
+        <div class="footer-badge">
+          <div class="footer-badge-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          </div>
+          <span>Student Publication&ensp;&middot;&ensp;Est. 2021</span>
+        </div>
+      </section>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <h3>Quick Links</h3>
+        <div class="footer-nav-lists">
+          <div>
+            <h4>Sections</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="articles.html">Articles</a></li>
+              <li><a href="legacy.html">Legacy</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#">Archive</a></li>
+              <li><a href="#">Masthead</a></li>
+              <li><a href="#">Data Hub</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <div class="footer-contact">
+          <span>📍 Room 204, Media Wing, DESCon Campus</span>
+          <span>📧 desconomicreview@gmail.com</span>
+        </div>
+        <div class="footer-policies">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Sitemap</a>
+          <a href="#">Accessibility</a>
+        </div>
+        <div class="footer-copyright">
+          &copy; 2026 DESConomic Review. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <button id="backToTop" aria-label="Back to top">&uarr;</button>
+  <script>
+  (function() {
+    var ARTICLES_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?output=csv';
+    var LEGACY_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?gid=200174875&single=true&output=csv';
+    var params = new URLSearchParams(window.location.search);
+    var isLegacy = params.has('legacy');
+    var articleId = parseInt(params.get(isLegacy ? 'legacy' : 'id'), 10);
+    var CSV_URL = isLegacy ? LEGACY_CSV : ARTICLES_CSV;
+    // Highlight correct nav link
+    document.getElementById(isLegacy ? 'navLegacy' : 'navArticles').classList.add('active');
+    var headerEl  = document.getElementById('articleHeader');
+    var spinnerEl = document.getElementById('articleSpinner');
+    var errorEl   = document.getElementById('articleError');
+    var heroEl    = document.getElementById('articleHero');
+    var imgEl     = document.getElementById('articleImg');
+    var bodyEl    = document.getElementById('articleBody');
+    var endEl     = document.getElementById('articleEnd');
+    var bylineEl  = document.getElementById('articleByline');
+    var moreEl    = document.getElementById('moreArticles');
+    var moreGrid  = document.getElementById('moreGrid');
+
+    /* ── CSV parser (handles quoted multi-line fields) ── */
+    function parseCSV(csv) {
+      if (csv.charCodeAt(0) === 0xFEFF) csv = csv.slice(1);
+      var rows = [], row = [], field = '', inQ = false;
+      for (var i = 0; i < csv.length; i++) {
+        var c = csv[i];
+        if (inQ) {
+          if (c === '"') {
+            if (csv[i + 1] === '"') { field += '"'; i++; }
+            else { inQ = false; }
+          } else {
+            field += c;
+          }
+        } else {
+          if (c === '"') { inQ = true; }
+          else if (c === ',') { row.push(field); field = ''; }
+          else if (c === '\n') {
+            row.push(field);
+            if (row.length > 1 || row[0].trim()) rows.push(row);
+            row = []; field = '';
+          }
+          else if (c !== '\r') { field += c; }
+        }
+      }
+      if (field || row.length) {
+        row.push(field);
+        if (row.length > 1 || row[0].trim()) rows.push(row);
+      }
+      return rows;
+    }
+
+    function esc(s) {
+      var d = document.createElement('div');
+      d.textContent = s || '';
+      return d.innerHTML;
+    }
+
+    /* ── Simple markdown-to-HTML for the body field ── */
+    function renderBody(text) {
+      var html = '';
+      var lines = text.split('\n');
+      var inList = false;
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trimEnd();
+        // Blank line
+        if (!line.trim()) {
+          if (inList) { html += '</ul>'; inList = false; }
+          continue;
+        }
+        // Horizontal rule
+        if (/^-{3,}$/.test(line.trim()) || /^\*{3,}$/.test(line.trim())) {
+          if (inList) { html += '</ul>'; inList = false; }
+          html += '<hr class="body-rule">';
+          continue;
+        }
+        // Heading ### or ##
+        var headMatch = line.match(/^(#{2,3})\s+(.+)/);
+        if (headMatch) {
+          if (inList) { html += '</ul>'; inList = false; }
+          var level = headMatch[1].length; // 2 or 3
+          html += '<h' + level + '>' + esc(headMatch[2].trim()) + '</h' + level + '>';
+          continue;
+        }
+        // Bullet list item
+        if (/^\s*[-*]\s+/.test(line)) {
+          var item = line.replace(/^\s*[-*]\s+/, '');
+          if (!inList) { html += '<ul>'; inList = true; }
+          html += '<li>' + esc(item) + '</li>';
+          continue;
+        }
+        // Regular paragraph
+        if (inList) { html += '</ul>'; inList = false; }
+        html += '<p>' + esc(line.trim()) + '</p>';
+      }
+      if (inList) html += '</ul>';
+      return html;
+    }
+
+    function showError(msg) {
+      spinnerEl.style.display = 'none';
+      if (window.location.protocol === 'file:') {
+        errorEl.innerHTML =
+          '<p style="font-size:22px;font-weight:700;margin:0 0 8px;">\u26A0 Cannot load article from a local file</p>' +
+          '<p style="color:var(--muted);font-size:14px;margin:0 0 8px;">Your browser blocks network requests when opening HTML files directly.</p>' +
+          '<p style="color:var(--muted);font-size:14px;margin:0;"><strong>Fix:</strong> Install the <em>Live Server</em> extension in VS Code, right-click &rarr; "Open with Live Server".</p>';
+      } else {
+        var backHref = isLegacy ? 'legacy.html' : 'articles.html';
+        var backLabel = isLegacy ? 'Back to Legacy' : 'Back to all articles';
+        errorEl.innerHTML =
+          '<p style="font-size:22px;font-weight:700;margin:0 0 8px;">Article not found</p>' +
+          '<p style="color:var(--muted);font-size:14px;margin:0 0 16px;">' + esc(msg || 'Could not load this article.') + '</p>' +
+          '<a href="' + backHref + '" style="color:var(--accent);font-weight:700;text-decoration:none;">&larr; ' + backLabel + '</a>';
+      }
+      errorEl.style.display = 'block';
+    }
+
+    if (isNaN(articleId)) { showError('No article ID specified.'); return; }
+
+    fetch(CSV_URL, { redirect: 'follow' })
+      .then(function(r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function(csv) {
+        console.log('[DESConomic] CSV fetched, length:', csv.length);
+        var rows = parseCSV(csv);
+        if (rows.length < 2) throw new Error('No data rows');
+        var hdr = rows[0].map(function(h) {
+          return h.replace(/[^\x20-\x7E]/g, '').toLowerCase().trim();
+        });
+        console.log('[DESConomic] Headers:', hdr.join(', '));
+        var allArticles = [];
+        for (var i = 1; i < rows.length; i++) {
+          var o = { index: i - 1 };
+          hdr.forEach(function(h, j) { o[h] = (rows[i] && rows[i][j]) || ''; });
+          if (o.title && o.title.trim()) allArticles.push(o);
+        }
+        console.log('[DESConomic] Articles loaded:', allArticles.length, '| Looking for id:', articleId);
+
+        var article = allArticles.find(function(a) { return a.index === articleId; });
+        if (!article) throw new Error('Article #' + articleId + ' not found');
+
+        // Page title
+        document.title = article.title;
+
+        // Header
+        spinnerEl.style.display = 'none';
+
+        // Reading time estimate
+        var wordCount = (article.body || '').split(/\s+/).filter(function(w){ return w.length > 0; }).length;
+        var readingTime = Math.max(1, Math.ceil(wordCount / 200));
+        var categoryText = (article.category || '').trim();
+        var authorName = (article.author || '').trim();
+        var authorInitial = authorName ? authorName.charAt(0).toUpperCase() : '?';
+
+        var breadcrumbParent = isLegacy ? '<a href="legacy.html">Legacy</a>' : '<a href="articles.html">Articles</a>';
+        headerEl.innerHTML =
+          '<div class="breadcrumb">' + breadcrumbParent + '<span class="sep">&rsaquo;</span>' + esc(article.title) + '</div>' +
+          '<div class="kicker">' + esc((article.tagline || article.category || '').trim()) + '</div>' +
+          '<h1>' + esc(article.title) + '</h1>' +
+          (article.excerpt ? '<p class="standfirst">' + esc(article.excerpt) + '</p>' : '') +
+          (categoryText ? '<div class="article-category-pill"><a href="articles.html" class="tag-pill">' + esc(categoryText) + '</a></div>' : '');
+
+        // Byline placed below hero image
+        var authorRole = (article.position || '').trim() || 'DESConomic Review Contributor';
+        bylineEl.innerHTML =
+          '<hr>' +
+          '<div class="author-block"><div class="author-avatar">' + esc(authorInitial) + '</div><div class="author-info"><p class="name">' + esc(authorName) + '</p><p class="role">' + esc(authorRole) + '</p></div></div>' +
+          '<p class="byline"><span>By ' + esc(article.author) + '</span> &middot; ' + esc(article.date) + ' &middot; <span class="reading-time">' + readingTime + ' min read</span></p>';
+        bylineEl.style.display = '';
+
+        // Hero image (only if it's a valid URL)
+        var hasImg = article.image && article.image.trim() && article.image.trim().indexOf('http') === 0;
+        if (hasImg) {
+          imgEl.src = article.image.trim();
+          imgEl.alt = article.title;
+          heroEl.style.display = '';
+        }
+
+        // Body — render with markdown support
+        bodyEl.innerHTML = renderBody(article.body || '');
+        bodyEl.style.display = '';
+
+        var sb = document.getElementById('shareSidebar');
+        if(sb) sb.classList.add('visible');
+
+        endEl.style.display = '';
+
+        // More articles (random 3 others, with placeholder fallback)
+        var others = allArticles.filter(function(a) { return a.index !== articleId; });
+        for (var i = others.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = others[i]; others[i] = others[j]; others[j] = tmp;
+        }
+        var more = others.slice(0, 3);
+        var placeholders = [
+          {index:-1, title:'The Hidden Cost of School Lunches', category:'Microeconomics', tagline:'', author:'DESConomic Review', date:'Feb 2026', excerpt:'', image:''},
+          {index:-1, title:'Why Your Bus Fare Keeps Rising', category:'Policy', tagline:'', author:'DESConomic Review', date:'Jan 2026', excerpt:'', image:''},
+          {index:-1, title:'Student Spending Habits: A Data Dive', category:'Data', tagline:'', author:'DESConomic Review', date:'Mar 2026', excerpt:'', image:''}
+        ];
+        while (more.length < 3) {
+          more.push(placeholders[more.length]);
+        }
+        moreGrid.innerHTML = '';
+        more.forEach(function(a) {
+          var mHasImg = a.image && a.image.trim() && a.image.trim().indexOf('http') === 0;
+          var mediaHTML = mHasImg
+            ? '<div class="article-card-media"><img src="' + esc(a.image.trim()) + '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>'
+            : '';
+          var card = document.createElement('div');
+          card.className = 'article-card';
+          var linkHref = a.index >= 0 ? ('article.html?' + (isLegacy ? 'legacy=' : 'id=') + a.index) : '#';
+          card.innerHTML =
+            mediaHTML +
+            '<div class="article-card-body">' +
+              '<div class="kicker">' + esc((a.tagline || a.category || '').trim()) + '</div>' +
+              '<h3><a href="' + linkHref + '">' + esc(a.title) + '</a></h3>' +
+              '<p class="card-date">' + esc(a.date) + '</p>' +
+            '</div>';
+          moreGrid.appendChild(card);
+        });
+        moreEl.style.display = '';
+      })
+      .catch(function(e) {
+        console.error('[DESConomic] Failed to load article:', e);
+        showError(e.message);
+      });
+  })();
+  </script>
+  <script>
+
+    // Sidebar / article-divider overlap guard
+    (function(){
+      var sidebar = document.getElementById('shareSidebar');
+      if(!sidebar) return;
+      var main = document.querySelector('main');
+      if(!main) return;
+      var isDocked = false;
+      var BUFFER = 20;
+      function getDividerOffset(divider){
+        var top = 0, el = divider;
+        while(el && el !== main){ top += el.offsetTop; el = el.offsetParent; }
+        return top;
+      }
+      function positionSidebar(){
+        if(!sidebar.classList.contains('visible')) return;
+        var divider = document.querySelector('#articleEnd .article-divider');
+        if(!divider) return;
+        var dividerRect = divider.getBoundingClientRect();
+        var sbH = sidebar.offsetHeight;
+        var fixedBot = window.innerHeight / 2 + sbH / 2;
+        if(isDocked){
+          if(dividerRect.top > fixedBot + BUFFER){
+            isDocked = false;
+            sidebar.style.position = '';
+            sidebar.style.top = '';
+            sidebar.style.transform = '';
+          } else {
+            sidebar.style.top = (getDividerOffset(divider) - sbH - 20) + 'px';
+          }
+        } else {
+          if(dividerRect.top < fixedBot){
+            isDocked = true;
+            sidebar.style.position = 'absolute';
+            sidebar.style.top = (getDividerOffset(divider) - sbH - 20) + 'px';
+            sidebar.style.transform = 'translateY(0)';
+          }
+        }
+      }
+      window.addEventListener('scroll', positionSidebar, {passive:true});
+      window.addEventListener('resize', positionSidebar, {passive:true});
+    })();
+
+    // Scroll progress indicator
+    window.addEventListener('scroll', function(){
+      var doc = document.documentElement;
+      var pct = doc.scrollTop / (doc.scrollHeight - doc.clientHeight);
+      pct = Math.min(1, Math.max(0, pct || 0));
+      var fill = document.getElementById('progressFill');
+      if(fill){
+        fill.style.strokeDashoffset = (100 - pct * 100).toString();
+        fill.style.stroke = pct >= 0.98 ? 'var(--accent)' : 'var(--text)';
+      }
+      var checkEl = document.querySelector('.scroll-progress .check-icon');
+      if(checkEl) checkEl.style.stroke = pct >= 0.98 ? 'var(--accent)' : 'var(--muted)';
+    });
+    // Back to top
+    window.addEventListener('scroll', function(){ document.getElementById('backToTop').style.opacity = window.scrollY > 400 ? '1' : '0'; });
+    document.getElementById('backToTop').addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+    // Ticker
+    (function(){ var items=document.querySelectorAll('.ticker-item'), i=0; if(items.length>1){ setInterval(function(){ items[i].classList.remove('ticker-active'); i=(i+1)%items.length; items[i].classList.add('ticker-active'); }, 3000); } })();
+  </script>
+</body>
+</html>
