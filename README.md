@@ -1,5 +1,5 @@
-DESConomic Review — Static prototype
-===================================
+Dubai Youth Economics Review — Static prototype
+===============================================
 
 What this is
 - A responsive, static prototype inspired by The Economist layout.

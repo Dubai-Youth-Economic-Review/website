@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About</title>
-  <meta name="description" content="DESConomic Review — student-led economic journalism at DESS Sixth Form. Independent reporting, data, and opinion.">
+  <title>About | Dubai Youth Economics Review</title>
+  <meta name="description" content="Dubai Youth Economics Review — student-led economic journalism. Independent reporting, data, and opinion.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
@@ -46,10 +46,22 @@
     /* ===== HEADER ===== */
     header{background:#fff;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--accent)}
     .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:relative}
-    .brand{display:flex;align-items:baseline;gap:10px}
-    .brand a{display:flex;align-items:baseline;gap:10px;text-decoration:none}
-    .mast{font-family:'Merriweather',serif;font-weight:900;color:var(--accent);font-size:26px;letter-spacing:.5px}
-    .tag{font-weight:700;font-size:15px;color:#222}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand-badge{
+      background:#C1121F;color:#fff;font-family:'Merriweather',Georgia,serif;
+      font-weight:900;font-size:22px;width:44px;height:44px;display:flex;
+      align-items:center;justify-content:center;border-radius:3px;flex-shrink:0;
+      line-height:1;text-decoration:none;
+    }
+    .brand-text{display:flex;flex-direction:column;gap:2px}
+    .mast{
+      font-family:'Merriweather',Georgia,serif;font-weight:900;font-size:22px;
+      color:var(--text);line-height:1;letter-spacing:.3px;
+    }
+    .tagline{
+      font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+      color:var(--muted);
+    }
     nav{display:flex;gap:28px;align-items:center}
     nav a{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.3px;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .25s ease}
     nav a:hover{color:var(--text)}
@@ -183,8 +195,11 @@
 
     /* ===== CONTACT ===== */
     .contact-section{
-      display:grid;grid-template-columns:1fr 1fr;gap:60px;
-      align-items:start;
+      display:block;
+    }
+    .contact-intro{
+      max-width:720px;margin:0 0 28px;color:var(--muted);
+      font-size:16px;line-height:1.7;
     }
     .contact-info h3{font-size:24px;font-weight:900;margin:0 0 16px}
     .contact-info > p{color:var(--muted);font-size:15px;line-height:1.7;margin:0 0 32px}
@@ -195,6 +210,7 @@
     }
     .contact-item span:last-child{font-size:16px;font-weight:600;color:var(--text)}
 
+    .contact-form{max-width:640px;width:100%}
     .contact-form h3{font-size:24px;font-weight:900;margin:0 0 24px}
     .contact-form label{
       display:block;font-size:12px;font-weight:700;color:var(--muted);
@@ -276,8 +292,6 @@
     @media(max-width:960px){
       header nav{display:none}
       .menu-toggle{display:block}
-      .mast{font-size:22px}
-      .tag{font-size:14px}
       .about-hero{padding:72px 24px 64px}
       .about-hero h1{font-size:36px}
       .values-grid{grid-template-columns:1fr;gap:36px;max-width:480px}
@@ -312,13 +326,14 @@
 <body>
 
   <header>
-    <div class="announce-bar"><span class="ticker-item ticker-active">Student Publication &middot; Est. 2021</span><span class="ticker-item">New article every week</span><span class="ticker-item">desconomicreview@gmail.com</span></div>
+    <div class="announce-bar"><span class="ticker-item ticker-active">Student Publication &middot; Est. 2021</span><span class="ticker-item">New article every week</span><span class="ticker-item">dubaiyoutheconomicsreview@gmail.com</span></div>
     <div class="container top">
       <div class="brand">
-        <a href="index.html">
-          <div class="mast">DESConomic</div>
-          <div class="tag">Review</div>
-        </a>
+        <a href="index.html" class="brand-badge">D</a>
+        <div class="brand-text">
+          <span class="mast">Dubai Youth Economics Review</span>
+          <span class="tagline">Est. 2021 · Student Publication</span>
+        </div>
       </div>
       <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">&#9776;</button>
       <nav id="siteNav" aria-label="Main navigation">
@@ -345,8 +360,8 @@
         <p class="section-label">Our Story</p>
         <h2 class="section-title">How It All Started</h2>
         <div class="story-block">
-          <p>The DESConomic Review was founded in 2021 by a small group of students who believed economics should not only exist in textbooks. They wanted to create a place where students could apply economic ideas to real events, writing about developments in the UAE, global markets, and international politics. What began as a small newsletter within the school community gradually developed into a full publication with a team of writers, editors, and designers who research, write, and edit every article themselves.</p>
-          <p>The publication focuses on analysing real world events through an economic lens. Articles apply ideas from economic theory to current issues, using concepts such as loss aversion from behavioural economics and Nash equilibrium from game theory to explain developments in markets, policy, and international relations. The DESConomic Review remains entirely student run and continues the founders' aim of connecting classroom economics with the real world.</p>
+          <p>The Dubai Youth Economics Review was founded in 2021 by a small group of students who believed economics should not only exist in textbooks. They created a digital publication where students apply economic ideas to real events, covering developments in the UAE, global markets, and international politics. What began as a small online newsletter grew into a full publication with a team of writers, editors, and designers who research, write, and edit every article themselves.</p>
+          <p>The publication analyses real world events through an economic lens. Articles apply ideas from economic theory to current issues, using concepts such as loss aversion from behavioural economics and Nash equilibrium from game theory to explain developments in markets, policy, and international relations. The Dubai Youth Economics Review remains entirely student-led and online, committed to connecting classroom economics with the real world.</p>
         </div>
       </div>
     </section>
@@ -464,7 +479,7 @@
             <div class="team-info">
               <h3>Chris W.</h3>
               <span class="role">Web Developer</span>
-              <p>Built and maintains the DESConomic Review website. Keeps everything running smoothly.</p>
+              <p>Built and maintains the Dubai Youth Economics Review website. Keeps everything running smoothly.</p>
             </div>
           </div>
 
@@ -496,32 +511,10 @@
     <section class="section" id="contactForm">
       <div class="container">
         <p class="section-label">Reach Out</p>
-        <h2 class="section-title">Get in Touch</h2>
+        <h2 class="section-title">Send Us a Message</h2>
+        <p class="contact-intro">Have a story tip, want to join the team, or just want to say hello? Fill in the form below and we'll get back to you.</p>
         <div class="contact-section">
-
-          <div class="contact-info">
-            <h3>Contact Us</h3>
-            <p>Have a story tip, want to join the team, or just want to say hello? We'd love to hear from you.</p>
-            <div class="contact-item">
-              <span class="ci-label">Email</span>
-              <span>desconomicreview@gmail.com</span>
-            </div>
-            <div class="contact-item">
-              <span class="ci-label">Location</span>
-              <span>LF7, Sixth Form, DESS College, Academic City, Dubai, UAE</span>
-            </div>
-            <div class="contact-item">
-              <span class="ci-label">Meetings</span>
-              <span>Tuesdays, 12:20 - 1:00 PM</span>
-            </div>
-            <div class="contact-item">
-              <span class="ci-label">Social</span>
-              <span>@desconomic on social media (placeholder)</span>
-            </div>
-          </div>
-
           <div class="contact-form">
-            <h3>Send us a Message</h3>
             <form id="contactForm">
               <label for="contactName">Your Name</label>
               <input type="text" id="contactName" name="from_name" placeholder="e.g. Jane Doe" required>
@@ -550,20 +543,18 @@
     <div class="container footer-top">
       <section class="footer-newsletter" aria-label="Newsletter signup">
         <h3>Stay Informed</h3>
-        <p>Get the latest from the DESConomic Review delivered to your inbox every week — articles, data snapshots, and student commentary.</p>
+        <p>Get the latest from the Dubai Youth Economics Review delivered to your inbox every week — articles, data snapshots, and student commentary.</p>
         <form class="footer-subscribe" id="subscribeForm">
           <input type="email" id="subscribeEmail" placeholder="you@school.edu" aria-label="Email address" required />
           <button type="submit">Subscribe</button>
         </form>
       </section>
       <section class="footer-about" aria-label="About the publication">
-        <h3>DESConomic Review</h3>
+        <h3>Dubai Youth Economics Review</h3>
         <p>Student-led economic journalism — researched, written, and edited entirely by students since 2024. Independent, curious, and committed to the truth.</p>
         <div class="footer-badge">
-          <div class="footer-badge-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-          </div>
-          <span>Student Publication&ensp;&middot;&ensp;Est. 2021</span>
+          <div class="footer-badge-icon" style="background:#C1121F; font-family:'Merriweather',Georgia,serif; font-weight:900; font-size:16px; color:#fff; display:flex; align-items:center; justify-content:center; border-radius:3px; width:32px; height:32px; flex-shrink:0;">D</div>
+          <span>Student Publication&ensp;·&ensp;Est. 2021</span>
         </div>
       </section>
       <nav class="footer-nav" aria-label="Footer navigation">
@@ -593,8 +584,7 @@
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
         <div class="footer-contact">
-          <span>📍 LF7, Sixth Form, DESS College, Academic City, Dubai, UAE</span>
-          <span>📧 desconomicreview@gmail.com</span>
+          <span>📧 dubaiyoutheconomicsreview@gmail.com</span>
         </div>
         <div class="footer-policies">
           <a href="#">Privacy Policy</a>
@@ -603,7 +593,7 @@
           <a href="#">Accessibility</a>
         </div>
         <div class="footer-copyright">
-          &copy; 2026 DESConomic Review. All rights reserved.
+          &copy; 2026 Dubai Youth Economics Review. All rights reserved.
         </div>
       </div>
     </div>
@@ -656,7 +646,7 @@
     document.getElementById('backToTop').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
     (function(){var items=document.querySelectorAll('.ticker-item'),i=0;if(items.length>1){setInterval(function(){items[i].classList.remove('ticker-active');i=(i+1)%items.length;items[i].classList.add('ticker-active');},3000);}})();
     // Prefetch articles CSV so Home page loads instantly
-    (function(){var u='https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?output=csv';fetch(u).then(function(r){return r.text();}).then(function(t){try{localStorage.setItem('descCSV',t);}catch(e){}}).catch(function(){});})();
+    (function(){var u='https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?output=csv';fetch(u).then(function(r){return r.text();}).then(function(t){try{localStorage.setItem('dyerCSV',t);}catch(e){}}).catch(function(){});})();
   </script>
 </body>
 </html>

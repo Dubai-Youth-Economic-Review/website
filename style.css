@@ -36,20 +36,21 @@ h1,h2,h3{font-family:'Merriweather', serif}
   top:0;
   z-index:20;
 }
-.brand{display:flex;align-items:baseline;gap:8px}
-.masthead{
-  font-family:"Merriweather", serif;
-  font-weight:900;
-  color:var(--accent);
-  font-size:28px;
-  letter-spacing:0.6px;
+.brand{display:flex;align-items:center;gap:14px}
+.brand-badge{
+  background:#C1121F;color:#fff;font-family:'Merriweather',Georgia,serif;
+  font-weight:900;font-size:22px;width:44px;height:44px;display:flex;
+  align-items:center;justify-content:center;border-radius:3px;flex-shrink:0;
+  line-height:1;text-decoration:none;
+}
+.brand-text{display:flex;flex-direction:column;gap:2px}
+.mast{
+  font-family:'Merriweather',Georgia,serif;font-weight:900;font-size:22px;
+  color:var(--text);line-height:1;letter-spacing:.3px;
 }
 .tagline{
-  font-family:"Merriweather", serif;
-  font-weight:700;
-  font-size:18px;
-  color:#222;
-  margin-left:4px;
+  font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--muted);
 }
 
 /* nav */
@@ -182,8 +183,6 @@ h1,h2,h3{font-family:'Merriweather', serif}
   .menu-toggle{display:block}
   .side-highlights{flex-direction:row; gap:8px}
   .side-highlights .highlight{flex:1}
-  .masthead{font-size:22px}
-  .tagline{font-size:15px}
 }
 
 @media (min-width:981px){
