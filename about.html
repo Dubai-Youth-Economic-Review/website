@@ -645,8 +645,8 @@
     window.addEventListener('scroll',function(){document.getElementById('backToTop').style.opacity=window.scrollY>400?'1':'0';});
     document.getElementById('backToTop').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
     (function(){var items=document.querySelectorAll('.ticker-item'),i=0;if(items.length>1){setInterval(function(){items[i].classList.remove('ticker-active');i=(i+1)%items.length;items[i].classList.add('ticker-active');},3000);}})();
-    // Prefetch articles CSV so Home page loads instantly
-    (function(){var u='https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?output=csv';fetch(u).then(function(r){return r.text();}).then(function(t){try{localStorage.setItem('dyerCSV',t);}catch(e){}}).catch(function(){});})();
+    // Prefetch articles JSON so Home page loads instantly
+    (function(){var u='articles.json';fetch(u).then(function(r){return r.json();}).then(function(t){try{localStorage.setItem('dyerArticles',JSON.stringify(t));}catch(e){}}).catch(function(){});})();
   </script>
 </body>
 </html>

@@ -497,12 +497,10 @@
   <button id="backToTop" aria-label="Back to top">&uarr;</button>
   <script>
   (function() {
-    var ARTICLES_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?output=csv';
-    var LEGACY_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?gid=200174875&single=true&output=csv';
+    var ARTICLES_JSON = 'articles.json';
     var params = new URLSearchParams(window.location.search);
     var isLegacy = params.has('legacy');
     var articleId = parseInt(params.get(isLegacy ? 'legacy' : 'id'), 10);
-    var CSV_URL = isLegacy ? LEGACY_CSV : ARTICLES_CSV;
     // Highlight correct nav link
     document.getElementById(isLegacy ? 'navLegacy' : 'navArticles').classList.add('active');
     var headerEl  = document.getElementById('articleHeader');
@@ -515,37 +513,6 @@
     var bylineEl  = document.getElementById('articleByline');
     var moreEl    = document.getElementById('moreArticles');
     var moreGrid  = document.getElementById('moreGrid');
-
-    /* ── CSV parser (handles quoted multi-line fields) ── */
-    function parseCSV(csv) {
-      if (csv.charCodeAt(0) === 0xFEFF) csv = csv.slice(1);
-      var rows = [], row = [], field = '', inQ = false;
-      for (var i = 0; i < csv.length; i++) {
-        var c = csv[i];
-        if (inQ) {
-          if (c === '"') {
-            if (csv[i + 1] === '"') { field += '"'; i++; }
-            else { inQ = false; }
-          } else {
-            field += c;
-          }
-        } else {
-          if (c === '"') { inQ = true; }
-          else if (c === ',') { row.push(field); field = ''; }
-          else if (c === '\n') {
-            row.push(field);
-            if (row.length > 1 || row[0].trim()) rows.push(row);
-            row = []; field = '';
-          }
-          else if (c !== '\r') { field += c; }
-        }
-      }
-      if (field || row.length) {
-        row.push(field);
-        if (row.length > 1 || row[0].trim()) rows.push(row);
-      }
-      return rows;
-    }
 
     function esc(s) {
       var d = document.createElement('div');
@@ -614,28 +581,23 @@
 
     if (isNaN(articleId)) { showError('No article ID specified.'); return; }
 
-    fetch(CSV_URL, { redirect: 'follow' })
+    fetch(ARTICLES_JSON)
       .then(function(r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.text();
+        return r.json();
       })
-      .then(function(csv) {
-        console.log('[DYER] CSV fetched, length:', csv.length);
-        var rows = parseCSV(csv);
-        if (rows.length < 2) throw new Error('No data rows');
-        var hdr = rows[0].map(function(h) {
-          return h.replace(/[^\x20-\x7E]/g, '').toLowerCase().trim();
-        });
-        console.log('[DYER] Headers:', hdr.join(', '));
-        var allArticles = [];
-        for (var i = 1; i < rows.length; i++) {
-          var o = { index: i - 1 };
-          hdr.forEach(function(h, j) { o[h] = (rows[i] && rows[i][j]) || ''; });
-          if (o.title && o.title.trim()) allArticles.push(o);
-        }
-        console.log('[DYER] Articles loaded:', allArticles.length, '| Looking for id:', articleId);
+      .then(function(data) {
+        var list = Array.isArray(data) ? data : [];
+        var allArticles = list.map(function(item, idx){
+          var obj = Object.assign({}, item);
+          obj.index = idx;
+          return obj;
+        }).filter(function(a){ return a.title && String(a.title).trim(); });
+        var legacyArticles = allArticles.filter(function(a){ return a.legacy === true; });
+        var activeArticles = isLegacy && legacyArticles.length ? legacyArticles : allArticles;
+        console.log('[DYER] Articles loaded:', activeArticles.length, '| Looking for id:', articleId);
 
-        var article = allArticles.find(function(a) { return a.index === articleId; });
+        var article = activeArticles.find(function(a) { return a.index === articleId; });
         if (!article) throw new Error('Article #' + articleId + ' not found');
 
         // Page title
@@ -675,8 +637,9 @@
           heroEl.style.display = '';
         }
 
-        // Body — render with markdown support
-        bodyEl.innerHTML = renderBody(article.body || '');
+        // Body — render as HTML when available, otherwise fallback to markdown support
+        var bodyContent = article.body || '';
+        bodyEl.innerHTML = (/<[a-z][\s\S]*>/i.test(bodyContent)) ? bodyContent : renderBody(bodyContent);
         bodyEl.style.display = '';
 
         var sb = document.getElementById('shareSidebar');

@@ -282,7 +282,7 @@
       <div class="container">
         <h2>Latest Articles</h2>
         <div class="grid" id="latestGrid">
-          <!-- Filled dynamically from CSV -->
+          <!-- Filled dynamically from JSON -->
         </div>
         <div style="text-align:right; margin-top:12px;">
           <a href="articles.html" style="color:var(--accent); font-weight:700; font-size:13px; text-decoration:none;">View all articles &rarr;</a>
@@ -366,32 +366,12 @@
     // Ticker
     (function(){ var items=document.querySelectorAll('.ticker-item'), i=0; if(items.length>1){ setInterval(function(){ items[i].classList.remove('ticker-active'); i=(i+1)%items.length; items[i].classList.add('ticker-active'); }, 3000); } })();
 
-    // Latest Articles from CSV
+    // Latest Articles from JSON
     (function(){
-      var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?output=csv';
+      var JSON_URL = 'articles.json';
       var grid = document.getElementById('latestGrid');
       var featureContainer = document.getElementById('featureContainer');
       var editorsPicksContainer = document.getElementById('editorsPicksContainer');
-
-      function parseCSV(csv){
-        if(csv.charCodeAt(0)===0xFEFF) csv=csv.slice(1);
-        var rows=[],row=[],field='',inQ=false;
-        for(var i=0;i<csv.length;i++){
-          var c=csv[i];
-          if(inQ){
-            if(c==='"'){if(csv[i+1]==='"'){field+='"';i++;}else{inQ=false;}}
-            else{field+=c;}
-          }else{
-            if(c==='"'){inQ=true;}
-            else if(c===','){row.push(field);field='';}
-            else if(c==='\r'){if(csv[i+1]==='\n')i++;row.push(field);field='';rows.push(row);row=[];}
-            else if(c==='\n'){row.push(field);field='';rows.push(row);row=[];}
-            else{field+=c;}
-          }
-        }
-        row.push(field);if(row.length>1||row[0])rows.push(row);
-        return rows;
-      }
 
       function parseDate(s){
         if(!s) return new Date(0);
@@ -415,11 +395,11 @@
         if(!featureContainer) return;
         var special = articles.filter(function(a){ return isTrueFlag(a.special_report); });
         if(special.length === 0){
-          featureContainer.innerHTML = '<article class="feature" aria-label="Featured article"><div class="feature-body"><p style="color:#C1121F;font-weight:700;">⚠ No Special Report set. Add special_report = true to exactly one row in the sheet.</p></div></article>';
+          featureContainer.innerHTML = '<article class="feature" aria-label="Featured article"><div class="feature-body"><p style="color:#C1121F;font-weight:700;">⚠ No Special Report set. Add special_report = true to exactly one entry in articles.json.</p></div></article>';
           return;
         }
         if(special.length > 1){
-          featureContainer.innerHTML = '<article class="feature" aria-label="Featured article"><div class="feature-body"><p style="color:#C1121F;font-weight:700;">⚠ Multiple Special Reports found. Only one row should have special_report = true.</p></div></article>';
+          featureContainer.innerHTML = '<article class="feature" aria-label="Featured article"><div class="feature-body"><p style="color:#C1121F;font-weight:700;">⚠ Multiple Special Reports found. Only one entry should have special_report = true.</p></div></article>';
           return;
         }
         var a = special[0];
@@ -443,11 +423,11 @@
         if(!editorsPicksContainer) return;
         var picks = articles.filter(function(a){ return isTrueFlag(a.editors_pick); });
         if(picks.length === 0){
-          editorsPicksContainer.innerHTML = '<p style="color:#C1121F;font-weight:700;">⚠ No Editor\'s Picks set. Add editors_pick = true to up to three rows in the sheet.</p>';
+          editorsPicksContainer.innerHTML = '<p style="color:#C1121F;font-weight:700;">⚠ No Editor\'s Picks set. Add editors_pick = true to up to three entries in articles.json.</p>';
           return;
         }
         if(picks.length > 3){
-          editorsPicksContainer.innerHTML = '<p style="color:#C1121F;font-weight:700;">⚠ Too many Editor\'s Picks. Only 3 rows should have editors_pick = true — currently found ' + picks.length + '.</p>';
+          editorsPicksContainer.innerHTML = '<p style="color:#C1121F;font-weight:700;">⚠ Too many Editor\'s Picks. Only 3 entries should have editors_pick = true — currently found ' + picks.length + '.</p>';
           return;
         }
         editorsPicksContainer.innerHTML = picks.map(function(a){
@@ -479,23 +459,14 @@
           '</div></div>';
       }
 
-      function renderFromCSV(text){
-        var rows=parseCSV(text);
-        if(rows.length<2){
-          renderFeature([]);
-          renderEditorsPicks([]);
-          grid.innerHTML = '';
-          return;
-        }
-        var headers=rows[0].map(function(h){return h.trim().toLowerCase();});
-        var articles=[];
-        for(var i=1;i<rows.length;i++){
-          var obj={};
-          for(var j=0;j<headers.length;j++) obj[headers[j]]=(rows[i][j]||'').trim();
-          obj._idx=i-1;
-          obj._date=parseDate(obj.date);
-          if(obj.title) articles.push(obj);
-        }
+      function renderFromJSON(data){
+        var list = Array.isArray(data) ? data : [];
+        var articles = list.map(function(item, idx){
+          var obj = Object.assign({}, item);
+          obj._idx = idx;
+          obj._date = parseDate(obj.date);
+          return obj;
+        }).filter(function(a){ return a.title; });
         renderFeature(articles);
         renderEditorsPicks(articles);
         articles.sort(function(a,b){return b._date-a._date;});
@@ -507,20 +478,28 @@
 
       // Render instantly from cache if available
       var cached = null;
-      try { cached = localStorage.getItem('dyerCSV'); } catch(e){}
-      if(cached) renderFromCSV(cached);
+      try { cached = localStorage.getItem('dyerArticles'); } catch(e){}
+      if(cached){
+        try { renderFromJSON(JSON.parse(cached)); } catch(e){}
+      }
 
       // Always fetch fresh data in background and update cache + grid
-      fetch(CSV_URL).then(function(r){return r.text();}).then(function(text){
-        try { localStorage.setItem('dyerCSV', text); } catch(e){}
-        renderFromCSV(text);
-      }).catch(function(){
-        if(!cached){
-          grid.innerHTML = '<p style="color:var(--muted); font-size:14px;">Articles coming soon.</p>';
-          renderFeature([]);
-          renderEditorsPicks([]);
-        }
-      });
+      fetch(JSON_URL)
+        .then(function(r){
+          if(!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(function(data){
+          try { localStorage.setItem('dyerArticles', JSON.stringify(data)); } catch(e){}
+          renderFromJSON(data);
+        })
+        .catch(function(){
+          if(!cached){
+            grid.innerHTML = '<p style="color:var(--muted); font-size:14px;">Articles coming soon.</p>';
+            renderFeature([]);
+            renderEditorsPicks([]);
+          }
+        });
     })();
   </script>
 </body>

@@ -334,45 +334,13 @@
 
   <script>
   (function() {
-    var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5cZd_9dBsw3Pk-OkmwhTFVpk6Gjd3DgiU6JAc3htboVnprmBz_4ReuavKgXrtTc-0ezwVn9nkX1f5/pub?output=csv';
+    var JSON_URL = 'articles.json';
     var grid = document.getElementById('articlesGrid');
     var spinner = document.getElementById('articlesSpinner');
     var errorEl = document.getElementById('articlesError');
     var filterContainer = document.getElementById('filterTabs');
     var allArticles = [];
     var activeFilter = 'ALL';
-
-    /* ── CSV parser (handles quoted multi-line fields) ── */
-    function parseCSV(csv) {
-      // Strip BOM if present
-      if (csv.charCodeAt(0) === 0xFEFF) csv = csv.slice(1);
-      var rows = [], row = [], field = '', inQ = false;
-      for (var i = 0; i < csv.length; i++) {
-        var c = csv[i];
-        if (inQ) {
-          if (c === '"') {
-            if (csv[i + 1] === '"') { field += '"'; i++; }
-            else { inQ = false; }
-          } else {
-            field += c;
-          }
-        } else {
-          if (c === '"') { inQ = true; }
-          else if (c === ',') { row.push(field); field = ''; }
-          else if (c === '\n') {
-            row.push(field);
-            if (row.length > 1 || row[0].trim()) rows.push(row);
-            row = []; field = '';
-          }
-          else if (c !== '\r') { field += c; }
-        }
-      }
-      if (field || row.length) {
-        row.push(field);
-        if (row.length > 1 || row[0].trim()) rows.push(row);
-      }
-      return rows;
-    }
 
     function esc(s) {
       var d = document.createElement('div');
@@ -442,27 +410,18 @@
     }
 
     /* ── Fetch and parse ── */
-    fetch(CSV_URL, { redirect: 'follow' })
+    fetch(JSON_URL)
       .then(function(r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.text();
+        return r.json();
       })
-      .then(function(csv) {
-        console.log('[DYER] CSV fetched, length:', csv.length);
-        try { localStorage.setItem('dyerCSV', csv); } catch(e){}
-        var rows = parseCSV(csv);
-        console.log('[DYER] Rows parsed:', rows.length);
-        if (rows.length < 2) throw new Error('No data rows found in spreadsheet');
-        // Map headers (strip invisible chars)
-        var hdr = rows[0].map(function(h) {
-          return h.replace(/[^\x20-\x7E]/g, '').toLowerCase().trim();
-        });
-        console.log('[DYER] Headers:', hdr.join(', '));
-        for (var i = 1; i < rows.length; i++) {
-          var o = { index: i - 1 };
-          hdr.forEach(function(h, j) { o[h] = (rows[i] && rows[i][j]) || ''; });
-          if (o.title && o.title.trim()) allArticles.push(o);
-        }
+      .then(function(data) {
+        var list = Array.isArray(data) ? data : [];
+        allArticles = list.map(function(item, idx) {
+          var obj = Object.assign({}, item);
+          obj.index = idx;
+          return obj;
+        }).filter(function(a){ return a.title && String(a.title).trim(); });
         console.log('[DYER] Articles loaded:', allArticles.length);
         spinner.style.display = 'none';
         buildTabs();
