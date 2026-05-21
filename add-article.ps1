@@ -76,10 +76,17 @@ $articles | ConvertTo-Json -Depth 20 | Set-Content -Path $articlesPath -Encoding
 
 Write-Host "Added article: $($article.title)" -ForegroundColor Green
 
-if ($Commit) {
+$shouldPush = Read-YesNo "Should I push and deploy? (y/n)"
+if ($shouldPush) {
   git add $articlesPath
-  git commit -m "Add article: $($article.title)"
-  if ($Push) {
-    git push
+
+  if ($imagePath) {
+    $imageFullPath = Join-Path $root $imagePath
+    if (Test-Path $imageFullPath) {
+      git add $imageFullPath
+    }
   }
+
+  git commit -m "Add article: $($article.title)"
+  git push
 }
