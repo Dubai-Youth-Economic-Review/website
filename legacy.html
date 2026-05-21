@@ -401,7 +401,7 @@
         articles.forEach(function(a) {
           var card = document.createElement('article');
           card.className = 'legacy-card';
-          var hasImg = a.image && a.image.trim() && a.image.trim().indexOf('http') === 0;
+          var hasImg = a.image && a.image.trim();
           var mediaHTML = hasImg
             ? '<div class="legacy-card-media"><img src="' + esc(a.image.trim()) + '" alt="" loading="lazy"></div>'
             : '';

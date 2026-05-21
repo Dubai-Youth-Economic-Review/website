@@ -629,8 +629,8 @@
           '<p class="byline"><span>By ' + esc(article.author) + '</span> &middot; ' + esc(article.date) + ' &middot; <span class="reading-time">' + readingTime + ' min read</span></p>';
         bylineEl.style.display = '';
 
-        // Hero image (only if it's a valid URL)
-        var hasImg = article.image && article.image.trim() && article.image.trim().indexOf('http') === 0;
+        // Hero image
+        var hasImg = article.image && article.image.trim();
         if (hasImg) {
           imgEl.src = article.image.trim();
           imgEl.alt = article.title;
@@ -664,7 +664,7 @@
         }
         moreGrid.innerHTML = '';
         more.forEach(function(a) {
-          var mHasImg = a.image && a.image.trim() && a.image.trim().indexOf('http') === 0;
+          var mHasImg = a.image && a.image.trim();
           var mediaHTML = mHasImg
             ? '<div class="article-card-media"><img src="' + esc(a.image.trim()) + '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>'
             : '';

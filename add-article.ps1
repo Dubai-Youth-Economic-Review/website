@@ -28,7 +28,7 @@ $position = Read-Host "3/9 Position (optional)"
 $date = Read-Host "4/9 Date (YYYY-MM-DD)"
 $category = Read-Host "5/9 Category"
 $excerpt = Read-Host "6/9 Excerpt (optional)"
-$image = Read-Host "7/9 Image URL (optional)"
+$imageFile = Read-Host "7/9 Image filename in article_images (optional)"
 
 Write-Host "8/9 Body: paste HTML or markdown. End with a single line containing EOF." -ForegroundColor Cyan
 $bodyLines = @()
@@ -47,6 +47,11 @@ if (-not $author) { Write-Error "Author is required." }
 if (-not $date) { Write-Error "Date is required." }
 if (-not $category) { Write-Error "Category is required." }
 
+$imagePath = ''
+if ($imageFile) {
+  $imagePath = "article_images/$($imageFile.Trim())"
+}
+
 $article = [ordered]@{
   title = $title.Trim()
   author = $author.Trim()
@@ -54,7 +59,7 @@ $article = [ordered]@{
   date = $date.Trim()
   category = $category.Trim()
   excerpt = $excerpt
-  image = $image
+  image = $imagePath
   body = $body
   special_report = $specialBool
   editors_pick = $editorsBool

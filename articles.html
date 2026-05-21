@@ -387,7 +387,7 @@
         var card = document.createElement('div');
         card.className = 'article-card';
         card.setAttribute('data-category', (a.category || '').toUpperCase().trim());
-        var hasImg = a.image && a.image.trim() && a.image.trim().indexOf('http') === 0;
+        var hasImg = a.image && a.image.trim();
         var mediaHTML = hasImg
           ? '<div class="article-card-media"><img src="' + esc(a.image.trim()) + '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>'
           : '';

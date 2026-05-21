@@ -431,7 +431,7 @@
           return;
         }
         editorsPicksContainer.innerHTML = picks.map(function(a){
-          var hasImg = a.image && a.image.trim() && a.image.trim().indexOf('http') === 0;
+          var hasImg = a.image && a.image.trim();
           var mediaHTML = hasImg
             ? '<div class="card-sm-media"><img src="' + esc(a.image.trim()) + '" alt=""></div>'
             : '<div class="card-sm-media"></div>';
@@ -446,7 +446,7 @@
       }
 
       function buildCard(a, idx){
-        var hasImg = a.image && a.image.trim() && a.image.trim().indexOf('http') === 0;
+        var hasImg = a.image && a.image.trim();
         var mediaHTML = hasImg
           ? '<div class="article-card-media"><img src="'+esc(a.image.trim())+'" alt="" loading="lazy"></div>'
           : '';
