@@ -190,6 +190,48 @@ h1,h2,h3{font-family:'Merriweather', serif}
   .cards-grid .card .card-body h3{font-size:16px}
 }
 
+@media (max-width:480px){
+  .brand-badge{
+    width:34px;
+    height:34px;
+    font-size:17px;
+  }
+  .mast{
+    font-size:15px;
+    letter-spacing:0;
+  }
+  .tagline{display:none}
+
+  .topbar .container{padding:10px 14px}
+
+  .feature h1{font-size:22px}
+  .feature-content{padding:14px}
+  .hero{padding:12px 0}
+
+  .card-body h3{font-size:15px}
+  .card-body{padding:10px}
+  .latest{padding:16px 0}
+
+  .footer-contact span{
+    font-size:11px;
+    word-break:break-all;
+  }
+  .footer-policies{gap:10px}
+  .footer-policies a{font-size:11px}
+
+  .article-body > p:first-child::first-letter{
+    font-size:2.8em;
+    margin:4px 8px 0 0;
+  }
+  .article-body{font-size:15px}
+
+  .footer-subscribe button,
+  .footer-subscribe input[type="email"]{
+    min-height:44px;
+    font-size:15px;
+  }
+}
+
 /* small tweaks */
 .subscribe-form{display:flex; gap:8px; margin-top:8px}
 .subscribe-form input{flex:1;padding:8px;border:1px solid #ddd;border-radius:4px}
