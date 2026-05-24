@@ -314,6 +314,12 @@
       .share-btn{padding:6px 10px;font-size:12px}
     }
     @media (max-width:600px){
+      .container{padding:0 16px}
+      .top{gap:10px;align-items:flex-start}
+      .brand{gap:10px}
+      .brand-badge{width:36px;height:36px;font-size:18px}
+      .mast{font-size:18px;line-height:1.1}
+      .tagline{font-size:9px;letter-spacing:1.5px}
       .more-grid{grid-template-columns:1fr}
       .article-header{padding:28px 18px 0}
       .article-header h1{font-size:24px}
@@ -497,9 +503,9 @@
   <button id="backToTop" aria-label="Back to top">&uarr;</button>
   <script>
   (function() {
-    var ARTICLES_JSON = 'articles.json';
     var params = new URLSearchParams(window.location.search);
     var isLegacy = params.has('legacy');
+    var ARTICLES_JSON = isLegacy ? 'legacy.json' : 'articles.json';
     var articleId = parseInt(params.get(isLegacy ? 'legacy' : 'id'), 10);
     // Highlight correct nav link
     document.getElementById(isLegacy ? 'navLegacy' : 'navArticles').classList.add('active');
@@ -593,11 +599,9 @@
           obj.index = idx;
           return obj;
         }).filter(function(a){ return a.title && String(a.title).trim(); });
-        var legacyArticles = allArticles.filter(function(a){ return a.legacy === true; });
-        var activeArticles = isLegacy && legacyArticles.length ? legacyArticles : allArticles;
-        console.log('[DYER] Articles loaded:', activeArticles.length, '| Looking for id:', articleId);
+        console.log('[DYER] Articles loaded from', ARTICLES_JSON + ':', allArticles.length, '| Looking for id:', articleId);
 
-        var article = activeArticles.find(function(a) { return a.index === articleId; });
+        var article = allArticles.find(function(a) { return a.index === articleId; });
         if (!article) throw new Error('Article #' + articleId + ' not found');
 
         // Page title

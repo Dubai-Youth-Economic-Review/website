@@ -7,10 +7,10 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$articlesPath = Join-Path $root 'articles.json'
+$legacyPath = Join-Path $root 'legacy.json'
 
-if (-not (Test-Path $articlesPath)) {
-  Write-Error "articles.json not found at $articlesPath"
+if (-not (Test-Path $legacyPath)) {
+  Write-Error "legacy.json not found at $legacyPath"
 }
 
 function Read-YesNo($label) {
@@ -20,17 +20,17 @@ function Read-YesNo($label) {
   return ($norm -eq 'true' -or $norm -eq 'yes' -or $norm -eq 'y')
 }
 
-Write-Host "Enter article fields one by one. Press Enter to leave optional fields blank." -ForegroundColor Cyan
+Write-Host "Adding article to legacy.json. Press Enter to leave optional fields blank." -ForegroundColor Cyan
 
-$title     = Read-Host "1/9 Title"
-$author    = Read-Host "2/9 Author"
-$position  = Read-Host "3/9 Position (optional)"
-$date      = Read-Host "4/9 Date (YYYY-MM-DD)"
-$category  = Read-Host "5/9 Category"
-$excerpt   = Read-Host "6/9 Excerpt (optional)"
-$imageFile = Read-Host "7/9 Image filename in article_images (optional)"
+$title     = Read-Host "1/8 Title"
+$author    = Read-Host "2/8 Author"
+$position  = Read-Host "3/8 Position (optional)"
+$date      = Read-Host "4/8 Date (YYYY-MM-DD)"
+$category  = Read-Host "5/8 Category"
+$excerpt   = Read-Host "6/8 Excerpt (optional)"
+$imageFile = Read-Host "7/8 Image filename in article_images (optional, leave blank to add later)"
 
-Write-Host "8/9 Body: paste HTML or markdown. End with a single line containing EOF." -ForegroundColor Cyan
+Write-Host "8/8 Body: paste HTML or markdown. End with a single line containing EOF." -ForegroundColor Cyan
 $bodyLines = @()
 while ($true) {
   $line = Read-Host
@@ -38,9 +38,6 @@ while ($true) {
   $bodyLines += $line
 }
 $body = ($bodyLines -join "`n").Trim()
-
-$specialBool = Read-YesNo "9/9 Special report? (y/n)"
-$editorsBool = Read-YesNo "Editor's pick? (y/n)"
 
 if (-not $title)    { Write-Error "Title is required." }
 if (-not $author)   { Write-Error "Author is required." }
@@ -61,24 +58,24 @@ $article = [ordered]@{
   excerpt        = $excerpt
   image          = $imagePath
   body           = $body
-  special_report = $specialBool
-  editors_pick   = $editorsBool
+  special_report = $false
+  editors_pick   = $false
 }
 
-$jsonRaw  = Get-Content -Path $articlesPath -Raw
+$jsonRaw  = Get-Content -Path $legacyPath -Raw
 $articles = $jsonRaw | ConvertFrom-Json
 if (-not ($articles -is [System.Collections.IEnumerable])) {
-  Write-Error "articles.json must contain an array."
+  Write-Error "legacy.json must contain an array."
 }
 
 $articles += $article
-$articles | ConvertTo-Json -Depth 20 | Set-Content -Path $articlesPath -Encoding utf8
+$articles | ConvertTo-Json -Depth 20 | Set-Content -Path $legacyPath -Encoding utf8
 
-Write-Host "Added article: $($article.title)" -ForegroundColor Green
+Write-Host "Added to legacy.json: $($article.title)" -ForegroundColor Green
 
-$shouldPush = Read-YesNo "Should I push and deploy? (y/n)"
+$shouldPush = Read-YesNo "Push and deploy? (y/n)"
 if ($shouldPush) {
-  git add $articlesPath
+  git add $legacyPath
 
   if ($imagePath) {
     $imageFullPath = Join-Path $root $imagePath
@@ -87,6 +84,6 @@ if ($shouldPush) {
     }
   }
 
-  git commit -m "Add article: $($article.title)"
+  git commit -m "Add legacy article: $($article.title)"
   git push
 }

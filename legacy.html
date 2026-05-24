@@ -199,6 +199,12 @@
       .legacy-grid{grid-template-columns:repeat(2, 1fr)}
     }
     @media (max-width:600px){
+      .container{padding:0 16px}
+      .top{gap:10px;align-items:flex-start}
+      .brand{gap:10px}
+      .brand-badge{width:36px;height:36px;font-size:18px}
+      .mast{font-size:18px;line-height:1.1}
+      .tagline{font-size:9px;letter-spacing:1.5px}
       .page-header h1{font-size:26px}
       .year-heading{font-size:18px}
       .contrib-banner{padding:22px 18px}
@@ -337,7 +343,6 @@
   <button id="backToTop" aria-label="Back to top">&uarr;</button>
   <script>
   (function() {
-    var JSON_URL = 'articles.json';
     var contentEl = document.getElementById('legacyContent');
     var spinner = document.getElementById('legacySpinner');
     var errorEl = document.getElementById('legacyError');
@@ -405,11 +410,15 @@
           var mediaHTML = hasImg
             ? '<div class="legacy-card-media"><img src="' + esc(a.image.trim()) + '" alt="" loading="lazy"></div>'
             : '';
+          // Articles from articles.json use ?id=, legacy-only articles use ?legacy=
+          var href = a._source === 'legacy'
+            ? 'article.html?legacy=' + a.index
+            : 'article.html?id=' + a.index;
           card.innerHTML =
             mediaHTML +
             '<div class="legacy-card-body">' +
               '<div class="kicker">' + esc((a.tagline || a.category || '').trim()) + '</div>' +
-              '<h3><a href="article.html?legacy=' + a.index + '">' + esc(a.title) + '</a></h3>' +
+              '<h3><a href="' + href + '">' + esc(a.title) + '</a></h3>' +
               '<p class="byline">By ' + esc(a.author) + ' \u2014 ' + esc(a.date) + '</p>' +
               '<p class="excerpt">' + esc(a.excerpt) + '</p>' +
             '</div>';
@@ -419,20 +428,51 @@
       });
     }
 
-    fetch(JSON_URL)
-      .then(function(r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
+    // Fetch both articles.json and legacy.json in parallel
+    // legacy.json may not exist yet — treat a 404 as an empty array
+    Promise.all([
+      fetch('articles.json').then(function(r) {
+        if (!r.ok) throw new Error('articles.json HTTP ' + r.status);
         return r.json();
-      })
-      .then(function(data) {
-        var list = Array.isArray(data) ? data : [];
-        var normalized = list.map(function(item, idx){
-          var obj = Object.assign({}, item);
-          obj.index = idx;
-          return obj;
-        }).filter(function(a){ return a.title && String(a.title).trim(); });
-        var legacyArticles = normalized.filter(function(a){ return a.legacy === true; });
-        allArticles = legacyArticles.length ? legacyArticles : normalized;
+      }),
+      fetch('legacy.json').then(function(r) {
+        if (r.status === 404) return [];          // file doesn't exist yet — that's fine
+        if (!r.ok) throw new Error('legacy.json HTTP ' + r.status);
+        return r.json();
+      }).catch(function() { return []; })          // network error also treated as empty
+    ])
+      .then(function(results) {
+        var articlesData = Array.isArray(results[0]) ? results[0] : [];
+        var legacyData   = Array.isArray(results[1]) ? results[1] : [];
+
+        // Tag and index each set independently
+        var fromArticles = articlesData
+          .map(function(item, idx) {
+            var obj = Object.assign({}, item);
+            obj.index   = idx;
+            obj._source = 'articles';   // links to article.html?id=
+            return obj;
+          })
+          .filter(function(a) { return a.title && String(a.title).trim(); });
+
+        var fromLegacy = legacyData
+          .map(function(item, idx) {
+            var obj = Object.assign({}, item);
+            obj.index   = idx;
+            obj._source = 'legacy';     // links to article.html?legacy=
+            return obj;
+          })
+          .filter(function(a) { return a.title && String(a.title).trim(); });
+
+        // Merge: all articles.json articles + all legacy.json articles
+        allArticles = fromArticles.concat(fromLegacy);
+
+        // Sort by date descending within each year group
+        allArticles.sort(function(a, b) {
+          var da = new Date(a.date || 0), db = new Date(b.date || 0);
+          return db - da;
+        });
+
         var grouped = {};
         allArticles.forEach(function(a) {
           var year = extractYear(a.date);
@@ -440,7 +480,9 @@
           grouped[year].push(a);
         });
         var years = Object.keys(grouped).sort(function(a, b) { return b - a; });
+
         spinner.style.display = 'none';
+
         // Animate contributor count
         var countEl = document.getElementById('contribCount');
         if (countEl) {
@@ -454,6 +496,7 @@
             span.textContent = start;
           }, 30);
         }
+
         buildTabs(years);
         renderArticles(grouped, years);
       })
