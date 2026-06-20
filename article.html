@@ -471,10 +471,10 @@
           <div>
             <h4>Resources</h4>
             <ul>
-              <li><a href="#">Archive</a></li>
-              <li><a href="#">Masthead</a></li>
-              <li><a href="#">Data Hub</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="/legacy">Archive</a></li>
+              <li><a href="/about">Masthead</a></li>
+              <li><span style="color:#b0b0b0;font-size:13px;font-weight:600;">Data Hub</span></li>
+              <li><a href="/about#contactForm">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -486,10 +486,10 @@
           <span>📧 dubaiyoutheconomicsreview@gmail.com</span>
         </div>
         <div class="footer-policies">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
-          <a href="#">Sitemap</a>
-          <a href="#">Accessibility</a>
+          <span style="color:#888;font-size:12px;font-weight:600;">Privacy Policy</span>
+          <span style="color:#888;font-size:12px;font-weight:600;">Terms of Use</span>
+          <span style="color:#888;font-size:12px;font-weight:600;">Sitemap</span>
+          <span style="color:#888;font-size:12px;font-weight:600;">Accessibility</span>
         </div>
         <div class="footer-copyright">
           &copy; 2026 Dubai Youth Economics Review. All rights reserved.
@@ -505,7 +505,7 @@
   (function() {
     var params = new URLSearchParams(window.location.search);
     var isLegacy = params.has('legacy');
-    var ARTICLES_JSON = isLegacy ? 'legacy.json' : 'articles.json';
+    var ARTICLES_JSON = isLegacy ? '/legacy.json' : '/articles.json';
     var articleId = parseInt(params.get(isLegacy ? 'legacy' : 'id'), 10);
     // Highlight correct nav link
     document.getElementById(isLegacy ? 'navLegacy' : 'navArticles').classList.add('active');
