@@ -234,7 +234,7 @@
 
     <div class="container top">
       <div class="brand">
-        <a href="index.html" class="brand-badge">D</a>
+        <a href="/" class="brand-badge">D</a>
         <div class="brand-text">
           <span class="mast">Dubai Youth Economics Review</span>
           <span class="tagline">Est. 2021 · Student Publication</span>
@@ -242,10 +242,10 @@
       </div>
       <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">&#9776;</button>
       <nav id="siteNav" aria-label="Main navigation">
-        <a href="index.html">Home</a>
-        <a href="articles.html" class="active">Articles</a>
-        <a href="legacy.html">Legacy</a>
-        <a href="about.html">About</a>
+        <a href="/">Home</a>
+        <a href="/articles" class="active">Articles</a>
+        <a href="/legacy">Legacy</a>
+        <a href="/about">About</a>
       </nav>
     </div>
   </header>
@@ -302,10 +302,10 @@
           <div>
             <h4>Sections</h4>
             <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="articles.html">Articles</a></li>
-              <li><a href="legacy.html">Legacy</a></li>
-              <li><a href="about.html">About</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/articles">Articles</a></li>
+              <li><a href="/legacy">Legacy</a></li>
+              <li><a href="/about">About</a></li>
             </ul>
           </div>
           <div>
@@ -401,7 +401,7 @@
           mediaHTML +
           '<div class="article-card-body">' +
             '<div class="kicker">' + esc((a.tagline || a.category || '').trim()) + '</div>' +
-            '<h3><a href="article.html?id=' + a.index + '">' + esc(a.title) + '</a></h3>' +
+            '<h3><a href="/article?id=' + a.index + '">' + esc(a.title) + '</a></h3>' +
             '<p class="byline">By ' + esc(a.author) + ' \u2014 ' + esc(a.date) + '</p>' +
             '<p class="excerpt">' + esc(a.excerpt) + '</p>' +
           '</div>';
