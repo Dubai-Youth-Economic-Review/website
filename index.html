@@ -5,67 +5,28 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Home | Dubai Youth Economics Review</title>
   <meta name="description" content="Dubai Youth Economics Review — student-led economic journalism. Independent reporting, data, and opinion.">
+
+  <!-- Canonical + social share metadata -->
+  <link rel="canonical" href="https://dubaiyoutheconomicsreview.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dubai Youth Economics Review">
+  <meta property="og:title" content="Dubai Youth Economics Review">
+  <meta property="og:description" content="Student-led economic journalism. Independent reporting, data, and opinion.">
+  <meta property="og:url" content="https://dubaiyoutheconomicsreview.app/">
+  <meta property="og:image" content="https://dubaiyoutheconomicsreview.app/article_images/uae_free_zones.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dubai Youth Economics Review">
+  <meta name="twitter:description" content="Student-led economic journalism. Independent reporting, data, and opinion.">
+  <meta name="twitter:image" content="https://dubaiyoutheconomicsreview.app/article_images/uae_free_zones.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="script.js"></script>
   <style>
-    :root{
-      --accent:#C1121F;
-      --accent-dark:#780000;
-      --bg:#ffffff;
-      --page-bg:#FAF8F5;
-      --text:#0B0B0B;
-      --muted:#6B6B6B;
-      --charcoal:#1F1F1F;
-      --card-bg:#FAF8F5;
-      --max-width:1100px;
-    }
-    /* ===== RESET & BASE ===== */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    html,body{height:100%}
-    body{
-      font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-      color:var(--text);background:var(--page-bg);line-height:1.7;
-      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-    }
-    h1,h2,h3,h4{font-family:'Merriweather',serif;line-height:1.2}
-    img{max-width:100%;display:block}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
-
-    /* ===== ANNOUNCEMENT BAR ===== */
-    .announce-bar{background:var(--charcoal);color:#fff;text-align:center;font-size:11px;font-weight:600;padding:6px 0;letter-spacing:.4px}
-    .ticker-item{display:none}
-    .ticker-active{display:inline}
-
-    /* ===== HEADER ===== */
-    header{background:#fff;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--accent)}
-    .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:relative}
-    .brand{display:flex;align-items:center;gap:14px}
-    .brand-badge{
-      background:#C1121F;color:#fff;font-family:'Merriweather',Georgia,serif;
-      font-weight:900;font-size:22px;width:44px;height:44px;display:flex;
-      align-items:center;justify-content:center;border-radius:3px;flex-shrink:0;
-      line-height:1;text-decoration:none;
-    }
-    .brand-text{display:flex;flex-direction:column;gap:2px}
-    .mast{
-      font-family:'Merriweather',Georgia,serif;font-weight:900;font-size:22px;
-      color:var(--text);line-height:1;letter-spacing:.3px;
-    }
-    .tagline{
-      font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
-      color:var(--muted);
-    }
-    nav{display:flex;gap:28px;align-items:center}
-    nav a{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.3px;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .25s ease}
-    nav a:hover{color:var(--text)}
-    nav a.active{color:var(--text);border-bottom-color:var(--accent)}
-    .menu-toggle{display:none;border:0;background:transparent;font-size:22px;cursor:pointer;padding:4px 8px}
+    /* ===== Page-specific: Home ===== */
 
     /* hero */
     .hero{padding:26px 0;background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent)}
@@ -96,7 +57,7 @@
     /* latest */
     .latest{padding:28px 0}
     .latest h2{font-weight:800;font-size:20px;margin:0 0 14px}
-    .latest h2::after,.columns h2::after{content:'';display:block;width:40px;height:3px;background:var(--accent);margin-top:8px}
+    .latest h2::after{content:'';display:block;width:40px;height:3px;background:var(--accent);margin-top:8px}
     .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .article-card{background:#fff;border-radius:2px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.05);transition:transform 0.15s,box-shadow 0.15s}
     .article-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.08)}
@@ -112,110 +73,10 @@
     .article-card-body .byline{color:var(--muted);font-size:12px;margin-bottom:8px}
     .article-card-body .excerpt{color:#444;font-size:13px;line-height:1.5;margin:0}
 
-    /* special report banner */
-    .special-report{
-      background:linear-gradient(135deg, var(--accent), var(--accent-dark));
-      background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 8px);
-      border-radius:2px;padding:36px;color:#fff;margin:10px 0 28px;text-align:center;
-    }
-    .special-report h2{margin:0 0 8px;font-size:24px;font-weight:900}
-    .special-report p{margin:0 0 16px;opacity:0.9;font-size:15px;max-width:500px;margin-left:auto;margin-right:auto}
-    .special-report a{
-      display:inline-block;background:#fff;color:var(--accent);font-weight:700;
-      padding:10px 28px;border-radius:2px;text-decoration:none;font-size:14px;
-    }
-    .special-report a:hover{background:#f0f0f0}
-
-    /* trending list */
-    .trending-list{list-style:none;padding:0;margin:0;counter-reset:trending}
-    .trending-list li{counter-increment:trending;display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #f0f0f0}
-    .trending-list li:last-child{border-bottom:none}
-    .trending-list li::before{content:counter(trending);font-size:28px;font-weight:900;color:#E8E8E8;line-height:1;min-width:30px}
-    .trending-list li a{font-weight:600;color:var(--text);text-decoration:none}
-    .trending-list li a:hover{color:var(--accent)}
-
-    /* columns + sidebar */
-    .columns{display:grid;grid-template-columns:2fr 320px;gap:24px;padding:28px 0}
-    .list{list-style:none;padding:0;margin:0}
-    .list li{margin-bottom:10px}
-    .list li a{font-weight:600;color:var(--text);text-decoration:none}
-    .list li a:hover{color:var(--accent)}
-    .meta{color:var(--muted);font-size:13px;margin-left:6px}
-
-    /* sidebar */
-    .sidebar h3{font-size:16px;font-weight:800;margin:0 0 12px}
-    .sidebar-box{background:#fff;border-radius:2px;padding:20px;box-shadow:0 4px 10px rgba(0,0,0,0.05);margin-bottom:18px}
-    .sidebar-box-picks{border-left:3px solid var(--accent);padding-left:14px}
-
-    /* subscribe */
-    .subscribe-form{display:flex;flex-direction:column;gap:8px;margin-top:8px}
-    .subscribe-form input{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:4px;font-size:14px;box-sizing:border-box}
-    .subscribe-form input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(193,18,31,0.12)}
-    .subscribe-form button{
-      width:100%;background:var(--accent);color:#fff;border:0;padding:12px 18px;
-      border-radius:4px;font-weight:700;font-size:14px;cursor:pointer;transition:background 0.2s;
-    }
-    .subscribe-form button:hover{background:var(--accent-dark)}
-
-    /* ===== FOOTER ===== */
-    .site-footer{background:var(--charcoal);color:#d4d4d4;font-size:14px;line-height:1.6;border-top:4px solid var(--accent)}
-    .footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;padding:48px 0 36px}
-    .footer-newsletter h3,.footer-about h3,.footer-nav h3{color:#fff;font-size:16px;font-weight:800;margin:0 0 12px}
-    .footer-newsletter p,.footer-about p{margin:0 0 14px;color:#b0b0b0;font-size:13px}
-    .footer-subscribe{display:flex;gap:8px}
-    .footer-subscribe input[type="email"]{
-      flex:1;padding:10px 12px;border:1px solid #444;background:#2a2a2a;color:#eee;
-      font-size:14px;font-family:inherit;transition:border-color .2s,box-shadow .2s;
-      border-radius:0;-webkit-appearance:none;appearance:none;
-    }
-    .footer-subscribe input[type="email"]::placeholder{color:#777}
-    .footer-subscribe input[type="email"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(193,18,31,.25)}
-    .footer-subscribe button{
-      background:var(--accent);color:#fff;border:0;padding:10px 20px;
-      font-weight:700;font-size:14px;cursor:pointer;transition:background .2s;
-      white-space:nowrap;font-family:inherit;
-    }
-    .footer-subscribe button:hover{background:var(--accent-dark)}
-    .footer-badge{display:inline-flex;align-items:center;gap:8px;background:#2a2a2a;padding:8px 14px;margin-top:4px}
-    .footer-badge-icon{width:28px;height:28px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .footer-badge-icon svg{width:16px;height:16px;fill:#fff}
-    .footer-badge span{color:#ccc;font-size:12px;font-weight:600;letter-spacing:0.3px}
-    .footer-nav-lists{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .footer-nav-lists h4{color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px}
-    .footer-nav-lists ul{list-style:none;margin:0;padding:0}
-    .footer-nav-lists li{margin-bottom:8px}
-    .footer-nav-lists a{color:#b0b0b0;text-decoration:none;font-size:13px;font-weight:600;transition:color 0.2s}
-    .footer-nav-lists a:hover{color:#fff}
-    .footer-bottom{border-top:1px solid #333;padding:16px 0}
-    .footer-bottom-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-    .footer-contact{font-size:12px;color:#888}
-    .footer-contact span{margin-right:14px}
-    .footer-contact span:last-child{margin-right:0}
-    .footer-policies{display:flex;gap:16px}
-    .footer-policies a{color:#888;text-decoration:none;font-size:12px;font-weight:600;transition:color 0.2s}
-    .footer-policies a:hover{color:#fff}
-    .footer-copyright{font-size:12px;color:#888}
-    .small{font-size:13px;color:var(--muted)}
-
-    /* Mobile nav */
-    nav.nav-open{
-      display:flex !important;flex-direction:column;position:absolute;
-      top:100%;left:0;right:0;background:#fff;border-bottom:2px solid var(--accent);
-      box-shadow:0 12px 32px rgba(0,0,0,.1);padding:8px 24px;gap:0;z-index:100;
-    }
-    nav.nav-open a{padding:16px 0;border-bottom:1px solid #f0f0f0;font-size:15px;width:100%;text-transform:none;letter-spacing:0}
-    nav.nav-open a:last-child{border-bottom:none}
-
     /* responsive */
     @media (max-width:960px){
       .hero-grid{grid-template-columns:1fr}
-      .columns{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
-      header nav{display:none}
-      .menu-toggle{display:block}
-      .footer-top{grid-template-columns:1fr 1fr;gap:28px}
-      .footer-newsletter{grid-column:1 / -1}
-      .footer-subscribe{max-width:480px}
       .feature h1{font-size:24px}
       .side{flex-direction:row;gap:10px;overflow-x:auto}
       .card-sm{min-width:200px;flex:1}
@@ -224,50 +85,16 @@
       .grid{grid-template-columns:repeat(2,1fr)}
     }
     @media (max-width:600px){
-      .container{padding:0 16px}
-      .top{gap:10px;align-items:flex-start}
-      .brand{gap:10px}
-      .brand-badge{width:36px;height:36px;font-size:18px}
-      .mast{font-size:18px;line-height:1.1}
-      .tagline{font-size:9px;letter-spacing:1.5px}
       .side{flex-direction:column}
       .card-sm{min-width:auto}
       .grid{grid-template-columns:1fr}
-      .special-report{padding:24px 18px}
-      .special-report h2{font-size:20px}
-      .footer-top{grid-template-columns:1fr;gap:24px;padding:28px 0 24px}
-      .footer-subscribe{flex-direction:column}
-      .footer-subscribe button{width:100%;text-align:center}
-      .footer-bottom-inner{flex-direction:column;text-align:center;gap:10px}
-      .footer-contact span{display:block;margin:0 0 4px}
-      .footer-policies{justify-content:center;flex-wrap:wrap}
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <!-- Announcement top bar -->
-    <div class="announce-bar"><span class="ticker-item ticker-active">Student Publication &middot; Est. 2021</span><span class="ticker-item">New article every week</span><span class="ticker-item">dubaiyoutheconomicsreview@gmail.com</span></div>
-
-    <div class="container top">
-      <div class="brand">
-        <a href="/" class="brand-badge">D</a>
-        <div class="brand-text">
-          <span class="mast">Dubai Youth Economics Review</span>
-          <span class="tagline">Est. 2021 · Student Publication</span>
-        </div>
-      </div>
-
-      <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">&#9776;</button>
-      <nav id="siteNav" aria-label="Main navigation">
-        <a href="/" class="active">Home</a>
-        <a href="/articles">Articles</a>
-        <a href="/legacy">Legacy</a>
-        <a href="/about">About</a>
-      </nav>
-    </div>
-  </header>
+  <header id="siteHeader"></header>
+  <script>DYER.header('home');</script>
 
   <main>
     <div class="container" style="padding-top:14px; padding-bottom:0">
@@ -295,84 +122,16 @@
         </div>
       </div>
     </section>
-
-
   </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container footer-top">
-      <section class="footer-newsletter" aria-label="Newsletter signup">
-        <h3>Stay Informed</h3>
-        <p>Get the latest from the Dubai Youth Economics Review delivered to your inbox every week — articles, data snapshots, and student commentary.</p>
-        <form class="footer-subscribe" id="subscribeForm">
-          <input type="email" id="subscribeEmail" placeholder="you@school.edu" aria-label="Email address" required />
-          <button type="submit">Subscribe</button>
-        </form>
-      </section>
-      <section class="footer-about" aria-label="About the publication">
-        <h3>Dubai Youth Economics Review</h3>
-        <p>Student-led economic journalism — researched, written, and edited entirely by students since 2021. Independent, curious, and committed to the truth.</p>
-        <div class="footer-badge">
-          <div class="footer-badge-icon" style="background:#C1121F; font-family:'Merriweather',Georgia,serif; font-weight:900; font-size:16px; color:#fff; display:flex; align-items:center; justify-content:center; border-radius:3px; width:32px; height:32px; flex-shrink:0;">D</div>
-          <span>Student Publication&ensp;·&ensp;Est. 2021</span>
-        </div>
-      </section>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <h3>Quick Links</h3>
-        <div class="footer-nav-lists">
-          <div>
-            <h4>Sections</h4>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/articles">Articles</a></li>
-              <li><a href="/legacy">Legacy</a></li>
-              <li><a href="/about">About</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="/legacy">Archive</a></li>
-              <li><a href="/about">Masthead</a></li>
-              <li><span style="color:#b0b0b0;font-size:13px;font-weight:600;">Data Hub</span></li>
-              <li><a href="/about#contactForm">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <div class="footer-contact">
-          <span>📧 dubaiyoutheconomicsreview@gmail.com</span>
-        </div>
-        <div class="footer-policies">
-          <span style="color:#888;font-size:12px;font-weight:600;">Privacy Policy</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Terms of Use</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Sitemap</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Accessibility</span>
-        </div>
-        <div class="footer-copyright">
-          &copy; 2026 Dubai Youth Economics Review. All rights reserved.
-        </div>
-      </div>
-    </div>
-  </footer>
+  <footer id="siteFooter" class="site-footer" role="contentinfo"></footer>
+  <script>DYER.footer();</script>
 
-  <script src="script.js"></script>
-
-  <button id="backToTop" aria-label="Back to top">&uarr;</button>
   <script>
     // Dateline
     document.getElementById('dateline').textContent = new Date().toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
-    // Back to top
-    window.addEventListener('scroll', function(){ document.getElementById('backToTop').style.opacity = window.scrollY > 400 ? '1' : '0'; });
-    document.getElementById('backToTop').addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
-    // Ticker
-    (function(){ var items=document.querySelectorAll('.ticker-item'), i=0; if(items.length>1){ setInterval(function(){ items[i].classList.remove('ticker-active'); i=(i+1)%items.length; items[i].classList.add('ticker-active'); }, 3000); } })();
 
-    // Latest Articles from JSON
+    // Latest Articles from JSON (rendered only from the live fetch — no cache)
     (function(){
       var JSON_URL = '/articles.json';
       var grid = document.getElementById('latestGrid');
@@ -383,7 +142,6 @@
         if(!s) return new Date(0);
         var d=new Date(s);
         if(!isNaN(d)) return d;
-        // try "DD Month YYYY" / "Month DD, YYYY" etc.
         return new Date(0);
       }
 
@@ -396,6 +154,8 @@
       function isTrueFlag(v){
         return String(v || '').trim().toLowerCase() === 'true';
       }
+
+      function hrefFor(a){ return DYER.articleHref(a, a._idx, false); }
 
       function renderFeature(articles){
         if(!featureContainer) return;
@@ -410,7 +170,7 @@
         }
         var a = special[0];
         var hasImg = !!(a.image && a.image.trim());
-        var mediaHTML = hasImg ? '<div class="feature-media"><img src="' + esc(a.image.trim()) + '" alt=""></div>' : '<div class="feature-media"></div>';
+        var mediaHTML = hasImg ? '<div class="feature-media"><img src="' + esc(a.image.trim()) + '" alt="' + esc(a.title || '') + '"></div>' : '<div class="feature-media"></div>';
         var byline = 'By ' + esc(a.author || '') + ' • ' + esc(a.date || '');
         featureContainer.innerHTML =
           '<article class="feature" aria-label="Featured article">' +
@@ -420,7 +180,7 @@
               '<h1>' + esc(a.title || '') + '</h1>' +
               '<p class="byline">' + byline + '</p>' +
               '<p class="excerpt">' + esc(a.excerpt || '') + '</p>' +
-              '<a href="/article?id=' + a._idx + '" class="read">Read the full story →</a>' +
+              '<a href="' + hrefFor(a) + '" class="read">Read the full story →</a>' +
             '</div>' +
           '</article>';
       }
@@ -439,28 +199,28 @@
         editorsPicksContainer.innerHTML = picks.map(function(a){
           var hasImg = a.image && a.image.trim();
           var mediaHTML = hasImg
-            ? '<div class="card-sm-media"><img src="' + esc(a.image.trim()) + '" alt=""></div>'
+            ? '<div class="card-sm-media"><img src="' + esc(a.image.trim()) + '" alt="' + esc(a.title || '') + '"></div>'
             : '<div class="card-sm-media"></div>';
           return '<div class="card-sm">' +
             mediaHTML +
             '<div class="kicker" style="font-size:10px; margin-bottom:6px;">Editor\'s Pick</div>' +
-            '<h3><a href="/article?id=' + a._idx + '">' + esc(a.title || '') + '</a></h3>' +
+            '<h3><a href="' + hrefFor(a) + '">' + esc(a.title || '') + '</a></h3>' +
             '<p>' + esc(a.excerpt || '') + '</p>' +
             '<p style="color:var(--muted);font-size:11px;margin:4px 0 0;">' + esc(a.read_time || '3 min read') + '</p>' +
           '</div>';
         }).join('');
       }
 
-      function buildCard(a, idx){
+      function buildCard(a){
         var hasImg = a.image && a.image.trim();
         var mediaHTML = hasImg
-          ? '<div class="article-card-media"><img src="'+esc(a.image.trim())+'" alt="" loading="lazy"></div>'
+          ? '<div class="article-card-media"><img src="'+esc(a.image.trim())+'" alt="'+esc(a.title || '')+'" loading="lazy"></div>'
           : '';
         var kicker = (a.tagline || a.category || '').trim();
         return '<div class="article-card">'+mediaHTML+'<div class="article-card-body">'+
           '<div class="kicker">'+esc(kicker)+'</div>'+
-          '<h3><a href="/article?id='+idx+'">'+esc(a.title || '')+'</a></h3>'+
-          '<p class="byline">By '+esc(a.author || '')+' \u2014 '+esc(a.date || '')+'</p>'+
+          '<h3><a href="'+hrefFor(a)+'">'+esc(a.title || '')+'</a></h3>'+
+          '<p class="byline">By '+esc(a.author || '')+' — '+esc(a.date || '')+'</p>'+
           '<p class="excerpt">'+esc(a.excerpt || '')+'</p>'+
           '</div></div>';
       }
@@ -478,33 +238,22 @@
         articles.sort(function(a,b){return b._date-a._date;});
         var html='';
         var count=Math.min(articles.length,4);
-        for(var k=0;k<count;k++) html+=buildCard(articles[k],articles[k]._idx);
+        for(var k=0;k<count;k++) html+=buildCard(articles[k]);
         grid.innerHTML=html;
       }
 
-      // Render instantly from cache if available
-      var cached = null;
-      try { cached = localStorage.getItem('dyerArticles'); } catch(e){}
-      if(cached){
-        try { renderFromJSON(JSON.parse(cached)); } catch(e){}
-      }
-
-      // Always fetch fresh data in background and update cache + grid
       fetch(JSON_URL)
         .then(function(r){
           if(!r.ok) throw new Error('HTTP ' + r.status);
           return r.json();
         })
         .then(function(data){
-          try { localStorage.setItem('dyerArticles', JSON.stringify(data)); } catch(e){}
           renderFromJSON(data);
         })
         .catch(function(){
-          if(!cached){
-            grid.innerHTML = '<p style="color:var(--muted); font-size:14px;">Articles coming soon.</p>';
-            renderFeature([]);
-            renderEditorsPicks([]);
-          }
+          grid.innerHTML = '<p style="color:var(--muted); font-size:14px;">Articles coming soon.</p>';
+          renderFeature([]);
+          renderEditorsPicks([]);
         });
     })();
   </script>

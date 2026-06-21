@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Page Not Found | Dubai Youth Economics Review</title>
+  <meta name="description" content="The page you were looking for could not be found.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/script.js"></script>
+  <style>
+    /* ===== Page-specific: 404 ===== */
+    .notfound{
+      max-width:640px;margin:0 auto;padding:96px 24px;text-align:center;
+    }
+    .notfound .code{
+      font-family:'Merriweather',serif;font-weight:900;font-size:96px;line-height:1;
+      color:var(--accent);margin:0 0 8px;
+    }
+    .notfound h1{font-size:28px;font-weight:900;margin:0 0 12px;color:var(--text)}
+    .notfound p{color:var(--muted);font-size:16px;line-height:1.7;margin:0 0 28px}
+    .notfound .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .notfound .btn{
+      display:inline-block;background:var(--accent);color:#fff;font-weight:700;
+      font-size:14px;padding:12px 28px;border-radius:2px;text-decoration:none;
+      transition:background .2s ease;
+    }
+    .notfound .btn:hover{background:var(--accent-dark)}
+    .notfound .btn.secondary{background:#fff;color:var(--text);border:1px solid #ddd}
+    .notfound .btn.secondary:hover{background:#f5f5f5}
+    @media (max-width:600px){
+      .notfound{padding:64px 18px}
+      .notfound .code{font-size:72px}
+    }
+  </style>
+</head>
+<body>
+
+  <header id="siteHeader"></header>
+  <script>DYER.header();</script>
+
+  <main>
+    <section class="notfound">
+      <p class="code">404</p>
+      <h1>Page not found</h1>
+      <p>The page you were looking for doesn&rsquo;t exist or may have moved. Let&rsquo;s get you back on track.</p>
+      <div class="actions">
+        <a href="/" class="btn">Go to homepage</a>
+        <a href="/articles" class="btn secondary">Browse articles</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="siteFooter" class="site-footer" role="contentinfo"></footer>
+  <script>DYER.footer();</script>
+</body>
+</html>

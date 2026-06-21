@@ -1,3 +1,11 @@
+/* =============================================================
+   Dubai Youth Economics Review — shared site styles
+   Single source of truth for the chrome shared across every page:
+   variables, reset/base, container, announcement bar, header/nav,
+   mobile nav, footer, back-to-top, drop cap, ticker, spinner.
+   Page-specific styles live in a small inline <style> on each page.
+   ============================================================= */
+
 :root{
   --accent:#C1121F;
   --accent-dark:#780000;
@@ -7,35 +15,31 @@
   --muted:#6B6B6B;
   --charcoal:#1F1F1F;
   --card-bg:#FAF8F5;
-  --max-width:1180px;
+  --max-width:1100px;
 }
 
-*{box-sizing:border-box}
+/* ===== RESET & BASE ===== */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 html,body{height:100%}
 body{
-  margin:0;
-  font-family: 'Inter', "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color:var(--text);
-  background:var(--page-bg);
-  line-height:1.7;
+  font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color:var(--text);background:var(--page-bg);line-height:1.7;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 }
-h1,h2,h3{font-family:'Merriweather', serif}
+h1,h2,h3,h4{font-family:'Merriweather',serif;line-height:1.2}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
 
-/* utility container */
-.container{
-  max-width:var(--max-width);
-  margin:0 auto;
-  padding:0 16px;
-}
+/* ===== ANNOUNCEMENT BAR ===== */
+.announce-bar{background:var(--charcoal);color:#fff;text-align:center;font-size:11px;font-weight:600;padding:6px 0;letter-spacing:.4px}
+.ticker-item{display:none}
+.ticker-active{display:inline}
 
-/* Header / masthead */
-.site-header .topbar{
-  border-bottom:3px solid var(--accent);
-  background:#fff;
-  position:sticky;
-  top:0;
-  z-index:20;
-}
+/* ===== HEADER ===== */
+header{background:#fff;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--accent)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:relative}
 .brand{display:flex;align-items:center;gap:14px}
 .brand-badge{
   background:#C1121F;color:#fff;font-family:'Merriweather',Georgia,serif;
@@ -52,201 +56,79 @@ h1,h2,h3{font-family:'Merriweather', serif}
   font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
   color:var(--muted);
 }
-
-/* nav */
-.topbar .container{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:16px 16px;
-}
-.site-nav{
-  display:flex;
-  gap:18px;
-  align-items:center;
-}
-.site-nav a{
-  color:var(--muted);
-  text-decoration:none;
-  font-weight:600;
-}
-.site-nav a.active{color:var(--text)}
-.menu-toggle{
-  display:none;
-  border:0;
-  background:transparent;
-  font-size:20px;
-}
-
-/* Hero */
-.hero{
-  padding:22px 0;
-  background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
-}
-.hero-grid{
-  display:grid;
-  grid-template-columns: 1fr 360px;
-  gap:20px;
-  align-items:start;
-}
-.feature{
-  position:relative;
-  background:#fff;
-  border-radius:2px;
-  overflow:hidden;
-  box-shadow:0 6px 18px rgba(0,0,0,0.05);
-}
-.feature img{width:100%; height:auto; display:block}
-.feature-content{
-  padding:20px;
-}
-.kicker{
-  color:var(--accent);
-  font-weight:700;
-  font-size:12px;
-  letter-spacing:1px;
-  margin-bottom:8px;
-}
-.feature h1{
-  font-family:"Merriweather", serif;
-  margin:0 0 8px;
-  font-size:30px;
-  line-height:1.05;
-}
-.byline{color:var(--muted); font-size:13px; margin-bottom:10px}
-.excerpt{color:#222; margin-bottom:12px}
-.read-more{color:var(--accent); font-weight:700; text-decoration:none}
-
-/* Side highlights */
-.side-highlights{display:flex;flex-direction:column; gap:12px}
-.highlight{background:#fff;padding:10px;border-radius:2px}
-.highlight img{width:100%; height:auto; display:block; margin-bottom:8px}
-.highlight h3{font-size:16px;margin:4px 0}
-
-/* Latest cards */
-.latest{padding:28px 16px}
-.latest h2{font-family:"Merriweather", serif; margin:0 0 14px}
-.cards-grid{
-  display:grid;
-  grid-template-columns:repeat(2, 1fr);
-  gap:18px;
-}
-.card{background:#fff;border-radius:2px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.05)}
-.card img{width:100%; display:block}
-.card-body{padding:14px}
-.card-body h3{margin:0 0 8px; font-size:18px}
-.card .excerpt{margin:8px 0 0; color:var(--muted)}
-
-/* Columns / Sidebar */
-.columns{display:grid; grid-template-columns: 2fr 320px; gap:28px; padding:28px 16px}
-.column .list-articles{list-style:none; padding:0; margin:0}
-.list-articles li{margin-bottom:10px}
-.list-articles a{font-weight:600; color:var(--text); text-decoration:none}
-.meta{color:var(--muted); font-size:13px; margin-left:6px}
-
-/* footer */
-.site-footer{border-top:4px solid var(--accent); padding:20px 0; margin-top:28px}
-.footer-grid{display:flex; justify-content:space-between; align-items:center}
-
-/* small text */
-.small{font-size:13px; color:var(--muted)}
+nav{display:flex;gap:28px;align-items:center}
+nav a{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.3px;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .25s ease}
+nav a:hover{color:var(--text)}
+nav a.active{color:var(--text);border-bottom-color:var(--accent)}
+.menu-toggle{display:none;border:0;background:transparent;font-size:22px;cursor:pointer;padding:4px 8px}
 
 /* Mobile nav dropdown */
-.topbar .container{position:relative}
-.site-nav.nav-open{
-  display:flex !important;
-  flex-direction:column;
-  position:absolute;
-  top:100%;
-  left:0;right:0;
-  background:#fff;
-  border-bottom:3px solid var(--accent);
-  box-shadow:0 8px 24px rgba(0,0,0,0.12);
-  padding:8px 18px;
-  gap:0;
-  z-index:100;
+nav.nav-open{
+  display:flex !important;flex-direction:column;position:absolute;
+  top:100%;left:0;right:0;background:#fff;border-bottom:2px solid var(--accent);
+  box-shadow:0 12px 32px rgba(0,0,0,.1);padding:8px 24px;gap:0;z-index:100;
 }
-.site-nav.nav-open a{
-  padding:14px 0;
-  border-bottom:1px solid #f0f0f0;
-  font-size:16px;
-  width:100%;
-}
-.site-nav.nav-open a:last-child{border-bottom:none}
+nav.nav-open a{padding:16px 0;border-bottom:1px solid #f0f0f0;font-size:15px;width:100%;text-transform:none;letter-spacing:0}
+nav.nav-open a:last-child{border-bottom:none}
 
-/* Responsive */
-@media (max-width:980px){
-  .hero-grid{grid-template-columns:1fr; }
-  .columns{grid-template-columns:1fr; }
-  .cards-grid{grid-template-columns:1fr;}
-  .site-nav{display:none}
+/* ===== FOOTER (two-column: About + Quick Links) ===== */
+.site-footer{background:var(--charcoal);color:#d4d4d4;font-size:14px;line-height:1.6;border-top:4px solid var(--accent)}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr;gap:48px;padding:48px 0 36px}
+.footer-about h3,.footer-nav h3{color:#fff;font-size:16px;font-weight:800;margin:0 0 12px}
+.footer-about p{margin:0 0 14px;color:#b0b0b0;font-size:13px}
+.footer-badge{display:inline-flex;align-items:center;gap:8px;background:#2a2a2a;padding:8px 14px;margin-top:4px}
+.footer-badge-icon{width:28px;height:28px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.footer-badge-icon svg{width:16px;height:16px;fill:#fff}
+.footer-badge span{color:#ccc;font-size:12px;font-weight:600;letter-spacing:0.3px}
+.footer-nav-lists{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.footer-nav-lists h4{color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px}
+.footer-nav-lists ul{list-style:none;margin:0;padding:0}
+.footer-nav-lists li{margin-bottom:8px}
+.footer-nav-lists a{color:#b0b0b0;text-decoration:none;font-size:13px;font-weight:600;transition:color 0.2s}
+.footer-nav-lists a:hover{color:#fff}
+.footer-bottom{border-top:1px solid #333;padding:16px 0}
+.footer-bottom-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-contact{font-size:12px;color:#888}
+.footer-contact span{margin-right:14px}
+.footer-contact span:last-child{margin-right:0}
+.footer-policies{display:flex;gap:16px}
+.footer-policies a{color:#888;text-decoration:none;font-size:12px;font-weight:600;transition:color 0.2s}
+.footer-policies a:hover{color:#fff}
+.footer-copyright{font-size:12px;color:#888}
+.small{font-size:13px;color:var(--muted)}
+
+/* ===== BACK TO TOP ===== */
+#backToTop{
+  position:fixed;bottom:24px;right:24px;width:44px;height:44px;
+  background:var(--charcoal);color:#fff;border:0;font-size:20px;
+  cursor:pointer;opacity:0;transition:opacity .3s ease;z-index:90;
+  display:flex;align-items:center;justify-content:center;
+}
+#backToTop:hover{background:var(--accent)}
+
+/* ===== DROP CAP (article body) ===== */
+.article-body > p:first-child::first-letter{
+  font-family:'Merriweather',serif;font-size:4em;font-weight:900;
+  float:left;line-height:0.75;margin:6px 10px 0 0;color:var(--accent);
+}
+
+/* ===== LOADING SPINNER ===== */
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== SHARED RESPONSIVE (header + footer) ===== */
+@media (max-width:960px){
+  header nav{display:none}
   .menu-toggle{display:block}
-  .side-highlights{flex-direction:row; gap:8px}
-  .side-highlights .highlight{flex:1}
 }
-
-@media (min-width:981px){
-  .cards-grid{grid-template-columns:repeat(4, 1fr);}
-  .cards-grid .card .card-body h3{font-size:16px}
+@media (max-width:600px){
+  .container{padding:0 16px}
+  .top{gap:10px;align-items:flex-start}
+  .brand{gap:10px}
+  .brand-badge{width:36px;height:36px;font-size:18px}
+  .mast{font-size:18px;line-height:1.1}
+  .tagline{font-size:9px;letter-spacing:1.5px}
+  .footer-top{grid-template-columns:1fr;gap:24px;padding:28px 0 24px}
+  .footer-bottom-inner{flex-direction:column;text-align:center;gap:10px}
+  .footer-contact span{display:block;margin:0 0 4px}
+  .footer-policies{justify-content:center;flex-wrap:wrap}
 }
-
-@media (max-width:480px){
-  .brand-badge{
-    width:34px;
-    height:34px;
-    font-size:17px;
-  }
-  .mast{
-    font-size:15px;
-    letter-spacing:0;
-  }
-  .tagline{display:none}
-
-  .topbar .container{padding:10px 14px}
-
-  .feature h1{font-size:22px}
-  .feature-content{padding:14px}
-  .hero{padding:12px 0}
-
-  .card-body h3{font-size:15px}
-  .card-body{padding:10px}
-  .latest{padding:16px 0}
-
-  .footer-contact span{
-    font-size:11px;
-    word-break:break-all;
-  }
-  .footer-policies{gap:10px}
-  .footer-policies a{font-size:11px}
-
-  .article-body > p:first-child::first-letter{
-    font-size:2.8em;
-    margin:4px 8px 0 0;
-  }
-  .article-body{font-size:15px}
-
-  .footer-subscribe button,
-  .footer-subscribe input[type="email"]{
-    min-height:44px;
-    font-size:15px;
-  }
-}
-
-/* small tweaks */
-.subscribe-form{display:flex; gap:8px; margin-top:8px}
-.subscribe-form input{flex:1;padding:8px;border:1px solid #ddd;border-radius:4px}
-.subscribe-form button{background:var(--accent); color:#fff; border:0; padding:8px 12px; border-radius:4px}
-
-/* Reading progress bar */
-#readProgress { position:fixed; top:0; left:0; width:0%; height:3px; background:var(--accent); z-index:9999; transition:width 0.1s; }
-
-/* Back to top button */
-#backToTop { position:fixed; bottom:24px; right:24px; background:var(--charcoal); color:#fff; border:0; width:44px; height:44px; font-size:20px; cursor:pointer; opacity:0; transition:opacity .3s ease; z-index:90; display:flex; align-items:center; justify-content:center; }
-#backToTop:hover { background:var(--accent); }
-
-/* Drop cap */
-.article-body > p:first-child::first-letter { font-family:'Merriweather',serif; font-size:4em; font-weight:900; float:left; line-height:0.75; margin:6px 10px 0 0; color:var(--accent); }
-
-/* Ticker */
-.ticker-item { display:none; }
-.ticker-item.ticker-active { display:inline; }

@@ -5,72 +5,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Article | Dubai Youth Economics Review</title>
   <meta name="description" content="Dubai Youth Economics Review — student-led economic journalism. Independent reporting, data, and opinion.">
+
+  <!-- Canonical + social share metadata (static fallback; updated per-article via JS once loaded) -->
+  <link rel="canonical" id="metaCanonical" href="https://dubaiyoutheconomicsreview.app/articles">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Dubai Youth Economics Review">
+  <meta property="og:title" id="ogTitle" content="Dubai Youth Economics Review">
+  <meta property="og:description" id="ogDesc" content="Student-led economic journalism. Independent reporting, data, and opinion.">
+  <meta property="og:url" id="ogUrl" content="https://dubaiyoutheconomicsreview.app/articles">
+  <meta property="og:image" id="ogImage" content="https://dubaiyoutheconomicsreview.app/article_images/uae_free_zones.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" id="twTitle" content="Dubai Youth Economics Review">
+  <meta name="twitter:description" id="twDesc" content="Student-led economic journalism. Independent reporting, data, and opinion.">
+  <meta name="twitter:image" id="twImage" content="https://dubaiyoutheconomicsreview.app/article_images/uae_free_zones.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
   <style>
-    :root{
-      --accent:#C1121F;
-      --accent-dark:#780000;
-      --bg:#ffffff;
-      --page-bg:#FAF8F5;
-      --text:#0B0B0B;
-      --muted:#6B6B6B;
-      --charcoal:#1F1F1F;
-      --card-bg:#FAF8F5;
-      --max-width:1100px;
-    }
-    /* ===== RESET & BASE ===== */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    html,body{height:100%}
-    body{
-      font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-      color:var(--text);background:var(--page-bg);line-height:1.7;
-      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-    }
-    h1,h2,h3,h4{font-family:'Merriweather',serif;line-height:1.2}
-    img{max-width:100%;display:block}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
+    /* ===== Page-specific: Article ===== */
     main{position:relative}
 
-    /* ===== ANNOUNCEMENT BAR ===== */
-    .announce-bar{background:var(--charcoal);color:#fff;text-align:center;font-size:11px;font-weight:600;padding:6px 0;letter-spacing:.4px}
-    .ticker-item{display:none}
-    .ticker-active{display:inline}
-
-    /* ===== HEADER ===== */
-    header{background:#fff;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--accent)}
-    .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:relative}
-    .brand{display:flex;align-items:center;gap:14px}
-    .brand-badge{
-      background:#C1121F;color:#fff;font-family:'Merriweather',Georgia,serif;
-      font-weight:900;font-size:22px;width:44px;height:44px;display:flex;
-      align-items:center;justify-content:center;border-radius:3px;flex-shrink:0;
-      line-height:1;text-decoration:none;
-    }
-    .brand-text{display:flex;flex-direction:column;gap:2px}
-    .mast{
-      font-family:'Merriweather',Georgia,serif;font-weight:900;font-size:22px;
-      color:var(--text);line-height:1;letter-spacing:.3px;
-    }
-    .tagline{
-      font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
-      color:var(--muted);
-    }
-    nav{display:flex;gap:28px;align-items:center}
-    nav a{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.3px;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .25s ease}
-    nav a:hover{color:var(--text)}
-    nav a.active{color:var(--text);border-bottom-color:var(--accent)}
-    .menu-toggle{display:none;border:0;background:transparent;font-size:22px;cursor:pointer;padding:4px 8px}
-
     /* ===== Article Header ===== */
-    .article-header{
-      max-width:780px;margin:0 auto;padding:40px 18px 0;text-align:center;
-    }
+    .article-header{max-width:780px;margin:0 auto;padding:40px 18px 0;text-align:center;}
     .article-header .kicker{
       color:var(--accent);font-weight:700;font-size:12px;letter-spacing:1.5px;
       text-transform:uppercase;margin-bottom:14px;
@@ -84,9 +44,7 @@
       font-size:18px;line-height:1.55;color:var(--muted);margin:0 0 18px;
       max-width:640px;margin-left:auto;margin-right:auto;
     }
-    .article-header .byline{
-      font-size:14px;color:var(--muted);font-weight:600;margin:0;
-    }
+    .article-header .byline{font-size:14px;color:var(--muted);font-weight:600;margin:0;}
     .article-header .byline span{color:var(--text)}
 
     /* Breadcrumb */
@@ -101,11 +59,7 @@
     .author-info{text-align:left}
     .author-info .name{font-weight:700;font-size:15px;color:var(--text);margin:0;line-height:1.3}
     .author-info .role{font-size:12px;color:var(--muted);margin:0;line-height:1.4}
-
-    /* Reading time */
     .reading-time{font-weight:500}
-
-    /* Category pill in header area */
     .article-header .article-category-pill{margin-top:14px}
 
     /* ===== Share Sidebar (desktop) ===== */
@@ -136,23 +90,13 @@
     .article-byline-below .byline span{color:var(--text)}
 
     /* ===== Hero Image ===== */
-    .article-hero{
-      max-width:680px;margin:28px auto 0;padding:0 18px;
-    }
-    .article-hero-img{
-      width:100%;background:linear-gradient(135deg,#e8e0d8,#d4cdc5);
-      border-radius:2px;overflow:hidden;
-    }
+    .article-hero{max-width:680px;margin:28px auto 0;padding:0 18px;}
+    .article-hero-img{width:100%;background:linear-gradient(135deg,#e8e0d8,#d4cdc5);border-radius:2px;overflow:hidden;}
     .article-hero-img img{width:100%;height:auto;display:block;border-radius:2px}
-    .article-hero figcaption{
-      font-size:13px;color:var(--muted);font-style:italic;margin-top:10px;text-align:center;
-    }
+    .article-hero figcaption{font-size:13px;color:var(--muted);font-style:italic;margin-top:10px;text-align:center;}
 
     /* ===== Article Body ===== */
-    .article-body{
-      max-width:680px;margin:0 auto;padding:32px 18px 0;
-      font-size:17px;line-height:1.8;color:#222;
-    }
+    .article-body{max-width:680px;margin:0 auto;padding:32px 18px 0;font-size:17px;line-height:1.8;color:#222;}
     .article-body p{margin:0 0 22px}
     .article-body h2{
       font-family:'Merriweather', serif;font-size:24px;font-weight:800;
@@ -169,32 +113,18 @@
     .article-body a:hover{color:var(--accent-dark)}
 
     /* Pull quote */
-    .pull-quote{
-      border-left:4px solid var(--accent);
-      padding:4px 0 4px 28px;margin:36px 0;
-    }
+    .pull-quote{border-left:4px solid var(--accent);padding:4px 0 4px 28px;margin:36px 0;}
     .pull-quote p{
       font-family:'Merriweather', serif;font-size:22px;font-style:italic;
       line-height:1.45;color:var(--text);margin:0 0 8px;font-weight:700;
     }
-    .pull-quote cite{
-      font-style:normal;font-family:'Inter', sans-serif;font-size:13px;
-      color:var(--muted);font-weight:600;
-    }
+    .pull-quote cite{font-style:normal;font-family:'Inter', sans-serif;font-size:13px;color:var(--muted);font-weight:600;}
 
     /* ===== Article Footer (tags + share) ===== */
-    .article-end{
-      max-width:680px;margin:0 auto;padding:0 18px 36px;
-    }
-    .article-divider{
-      border:none;border-top:3px solid var(--accent);margin:40px 0 28px;
-    }
-    .article-meta-row{
-      display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;
-    }
-    .article-meta-row .label{
-      font-weight:700;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;min-width:50px;
-    }
+    .article-end{max-width:680px;margin:0 auto;padding:0 18px 36px;}
+    .article-divider{border:none;border-top:3px solid var(--accent);margin:40px 0 28px;}
+    .article-meta-row{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+    .article-meta-row .label{font-weight:700;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;min-width:50px;}
     .tag-pill{
       display:inline-block;background:#fff;border:1px solid #ddd;border-radius:2px;
       padding:5px 14px;font-size:13px;font-weight:600;color:var(--text);
@@ -209,16 +139,10 @@
     .share-btn:hover{background:var(--charcoal);color:#fff;border-color:var(--charcoal)}
 
     /* ===== More Articles ===== */
-    .more-articles{
-      max-width:var(--max-width);margin:0 auto;padding:0 18px 40px;
-    }
-    .more-articles h2{
-      font-weight:800;font-size:22px;margin:0 0 20px;
-    }
+    .more-articles{max-width:var(--max-width);margin:0 auto;padding:0 18px 40px;}
+    .more-articles h2{font-weight:800;font-size:22px;margin:0 0 20px;}
     .more-articles h2::after{content:'';display:block;width:40px;height:3px;background:var(--accent);margin-top:8px}
-    .more-grid{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
-    }
+    .more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
     .article-card{
       background:#fff;border-radius:2px;overflow:hidden;
       box-shadow:0 4px 12px rgba(0,0,0,0.05);transition:transform 0.15s, box-shadow 0.15s;
@@ -226,8 +150,7 @@
     .article-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
     .article-card:not(:has(.article-card-media)){border-left:3px solid var(--accent)}
     .article-card-media{
-      height:180px;background:linear-gradient(135deg,#e8e0d8,#d4cdc5);display:flex;align-items:center;justify-content:center;
-      overflow:hidden;
+      height:180px;background:linear-gradient(135deg,#e8e0d8,#d4cdc5);display:flex;align-items:center;justify-content:center;overflow:hidden;
     }
     .article-card-media svg{width:100%;height:100%}
     .article-card-body{padding:16px}
@@ -243,60 +166,6 @@
     .article-card-body .excerpt{color:#444;font-size:13px;line-height:1.5;margin:0}
     .article-card-body .card-date{color:var(--muted);font-size:12px;margin:0}
 
-    /* ===== FOOTER ===== */
-    .site-footer{background:var(--charcoal);color:#d4d4d4;font-size:14px;line-height:1.6;border-top:4px solid var(--accent)}
-    .footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;padding:48px 0 36px}
-    .footer-newsletter h3,.footer-about h3,.footer-nav h3{color:#fff;font-size:16px;font-weight:800;margin:0 0 12px}
-    .footer-newsletter p,.footer-about p{margin:0 0 14px;color:#b0b0b0;font-size:13px}
-    .footer-subscribe{display:flex;gap:8px}
-    .footer-subscribe input[type="email"]{
-      flex:1;padding:10px 12px;border:1px solid #444;background:#2a2a2a;color:#eee;
-      font-size:14px;font-family:inherit;transition:border-color .2s,box-shadow .2s;
-      border-radius:0;-webkit-appearance:none;appearance:none;
-    }
-    .footer-subscribe input[type="email"]::placeholder{color:#777}
-    .footer-subscribe input[type="email"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(193,18,31,.25)}
-    .footer-subscribe button{
-      background:var(--accent);color:#fff;border:0;padding:10px 20px;
-      font-weight:700;font-size:14px;cursor:pointer;transition:background .2s;
-      white-space:nowrap;font-family:inherit;
-    }
-    .footer-subscribe button:hover{background:var(--accent-dark)}
-    .footer-badge{display:inline-flex;align-items:center;gap:8px;background:#2a2a2a;padding:8px 14px;margin-top:4px}
-    .footer-badge-icon{width:28px;height:28px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .footer-badge-icon svg{width:16px;height:16px;fill:#fff}
-    .footer-badge span{color:#ccc;font-size:12px;font-weight:600;letter-spacing:0.3px}
-    .footer-nav-lists{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .footer-nav-lists h4{color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px}
-    .footer-nav-lists ul{list-style:none;margin:0;padding:0}
-    .footer-nav-lists li{margin-bottom:8px}
-    .footer-nav-lists a{color:#b0b0b0;text-decoration:none;font-size:13px;font-weight:600;transition:color 0.2s}
-    .footer-nav-lists a:hover{color:#fff}
-    .footer-bottom{border-top:1px solid #333;padding:16px 0}
-    .footer-bottom-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-    .footer-contact{font-size:12px;color:#888}
-    .footer-contact span{margin-right:14px}
-    .footer-contact span:last-child{margin-right:0}
-    .footer-policies{display:flex;gap:16px}
-    .footer-policies a{color:#888;text-decoration:none;font-size:12px;font-weight:600;transition:color 0.2s}
-    .footer-policies a:hover{color:#fff}
-    .footer-copyright{font-size:12px;color:#888}
-
-    /* Drop cap */
-    .article-body > p:first-child::first-letter {
-      font-family: 'Merriweather', serif; font-size: 4em; font-weight: 900;
-      float: left; line-height: 0.75; margin: 6px 10px 0 0; color: var(--accent);
-    }
-
-    /* Mobile nav */
-    nav.nav-open{
-      display:flex !important;flex-direction:column;position:absolute;
-      top:100%;left:0;right:0;background:#fff;border-bottom:2px solid var(--accent);
-      box-shadow:0 12px 32px rgba(0,0,0,.1);padding:8px 24px;gap:0;z-index:100;
-    }
-    nav.nav-open a{padding:16px 0;border-bottom:1px solid #f0f0f0;font-size:15px;width:100%;text-transform:none;letter-spacing:0}
-    nav.nav-open a:last-child{border-bottom:none}
-
     /* ===== Responsive ===== */
     @media (max-width:1060px){
       .share-sidebar{display:none}
@@ -305,21 +174,10 @@
       .article-header h1{font-size:30px}
       .article-hero-img{max-height:none}
       .more-grid{grid-template-columns:1fr}
-      header nav{display:none}
-      .menu-toggle{display:block}
-      .footer-top{grid-template-columns:1fr 1fr;gap:28px}
-      .footer-newsletter{grid-column:1 / -1}
-      .footer-subscribe{max-width:480px}
       .article-meta-row{gap:8px}
       .share-btn{padding:6px 10px;font-size:12px}
     }
     @media (max-width:600px){
-      .container{padding:0 16px}
-      .top{gap:10px;align-items:flex-start}
-      .brand{gap:10px}
-      .brand-badge{width:36px;height:36px;font-size:18px}
-      .mast{font-size:18px;line-height:1.1}
-      .tagline{font-size:9px;letter-spacing:1.5px}
       .more-grid{grid-template-columns:1fr}
       .article-header{padding:28px 18px 0}
       .article-header h1{font-size:24px}
@@ -331,38 +189,13 @@
       .pull-quote p{font-size:17px}
       .article-end{padding:0 14px 28px}
       .tag-pill{padding:4px 10px;font-size:12px}
-      .footer-top{grid-template-columns:1fr;gap:24px;padding:28px 0 24px}
-      .footer-subscribe{flex-direction:column}
-      .footer-subscribe button{width:100%;text-align:center}
-      .footer-bottom-inner{flex-direction:column;text-align:center;gap:10px}
-      .footer-contact span{display:block;margin:0 0 4px}
-      .footer-policies{justify-content:center;flex-wrap:wrap}
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <!-- Announcement top bar -->
-    <div class="announce-bar"><span class="ticker-item ticker-active">Student Publication &middot; Est. 2021</span><span class="ticker-item">New article every week</span><span class="ticker-item">dubaiyoutheconomicsreview@gmail.com</span></div>
-
-    <div class="container top">
-      <div class="brand">
-        <a href="/" class="brand-badge">D</a>
-        <div class="brand-text">
-          <span class="mast">Dubai Youth Economics Review</span>
-          <span class="tagline">Est. 2021 · Student Publication</span>
-        </div>
-      </div>
-      <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">&#9776;</button>
-      <nav id="siteNav" aria-label="Main navigation">
-        <a href="/">Home</a>
-        <a href="/articles" id="navArticles">Articles</a>
-        <a href="/legacy" id="navLegacy">Legacy</a>
-        <a href="/about">About</a>
-      </nav>
-    </div>
-  </header>
+  <header id="siteHeader"></header>
+  <script>DYER.header();</script>
 
   <main>
     <!-- Share sidebar (desktop only) -->
@@ -402,7 +235,6 @@
         <div style="display:inline-block;width:40px;height:40px;border:4px solid #eee;border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;"></div>
         <p style="color:var(--muted);font-size:14px;margin-top:12px;">Loading article&#8230;</p>
       </div>
-      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
     </div>
 
     <!-- Error state (hidden by default) -->
@@ -437,78 +269,18 @@
     </section>
   </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container footer-top">
-      <section class="footer-newsletter" aria-label="Newsletter signup">
-        <h3>Stay Informed</h3>
-        <p>Get the latest from the Dubai Youth Economics Review delivered to your inbox every week — articles, data snapshots, and student commentary.</p>
-        <form class="footer-subscribe" id="subscribeForm">
-          <input type="email" id="subscribeEmail" placeholder="you@school.edu" aria-label="Email address" required />
-          <button type="submit">Subscribe</button>
-        </form>
-      </section>
-      <section class="footer-about" aria-label="About the publication">
-        <h3>Dubai Youth Economics Review</h3>
-        <p>Student-led economic journalism — researched, written, and edited entirely by students since 2021. Independent, curious, and committed to the truth.</p>
-        <div class="footer-badge">
-          <div class="footer-badge-icon" style="background:#C1121F; font-family:'Merriweather',Georgia,serif; font-weight:900; font-size:16px; color:#fff; display:flex; align-items:center; justify-content:center; border-radius:3px; width:32px; height:32px; flex-shrink:0;">D</div>
-          <span>Student Publication&ensp;·&ensp;Est. 2021</span>
-        </div>
-      </section>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <h3>Quick Links</h3>
-        <div class="footer-nav-lists">
-          <div>
-            <h4>Sections</h4>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/articles">Articles</a></li>
-              <li><a href="/legacy">Legacy</a></li>
-              <li><a href="/about">About</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="/legacy">Archive</a></li>
-              <li><a href="/about">Masthead</a></li>
-              <li><span style="color:#b0b0b0;font-size:13px;font-weight:600;">Data Hub</span></li>
-              <li><a href="/about#contactForm">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <div class="footer-contact">
-          <span>📧 dubaiyoutheconomicsreview@gmail.com</span>
-        </div>
-        <div class="footer-policies">
-          <span style="color:#888;font-size:12px;font-weight:600;">Privacy Policy</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Terms of Use</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Sitemap</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Accessibility</span>
-        </div>
-        <div class="footer-copyright">
-          &copy; 2026 Dubai Youth Economics Review. All rights reserved.
-        </div>
-      </div>
-    </div>
-  </footer>
+  <footer id="siteFooter" class="site-footer" role="contentinfo"></footer>
+  <script>DYER.footer();</script>
 
-  <script src="script.js"></script>
-
-  <button id="backToTop" aria-label="Back to top">&uarr;</button>
   <script>
   (function() {
     var params = new URLSearchParams(window.location.search);
     var isLegacy = params.has('legacy');
+    var slugParam = params.get('slug');
     var ARTICLES_JSON = isLegacy ? '/legacy.json' : '/articles.json';
+    // Backward-compatible index lookup when no slug is supplied
     var articleId = parseInt(params.get(isLegacy ? 'legacy' : 'id'), 10);
-    // Highlight correct nav link
-    document.getElementById(isLegacy ? 'navLegacy' : 'navArticles').classList.add('active');
+
     var headerEl  = document.getElementById('articleHeader');
     var spinnerEl = document.getElementById('articleSpinner');
     var errorEl   = document.getElementById('articleError');
@@ -526,6 +298,13 @@
       return d.innerHTML;
     }
 
+    function setMeta(id, value) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (el.tagName === 'LINK') el.setAttribute('href', value);
+      else el.setAttribute('content', value);
+    }
+
     /* ── Simple markdown-to-HTML for the body field ── */
     function renderBody(text) {
       var html = '';
@@ -533,33 +312,28 @@
       var inList = false;
       for (var i = 0; i < lines.length; i++) {
         var line = lines[i].trimEnd();
-        // Blank line
         if (!line.trim()) {
           if (inList) { html += '</ul>'; inList = false; }
           continue;
         }
-        // Horizontal rule
         if (/^-{3,}$/.test(line.trim()) || /^\*{3,}$/.test(line.trim())) {
           if (inList) { html += '</ul>'; inList = false; }
           html += '<hr class="body-rule">';
           continue;
         }
-        // Heading ### or ##
         var headMatch = line.match(/^(#{2,3})\s+(.+)/);
         if (headMatch) {
           if (inList) { html += '</ul>'; inList = false; }
-          var level = headMatch[1].length; // 2 or 3
+          var level = headMatch[1].length;
           html += '<h' + level + '>' + esc(headMatch[2].trim()) + '</h' + level + '>';
           continue;
         }
-        // Bullet list item
         if (/^\s*[-*]\s+/.test(line)) {
           var item = line.replace(/^\s*[-*]\s+/, '');
           if (!inList) { html += '<ul>'; inList = true; }
           html += '<li>' + esc(item) + '</li>';
           continue;
         }
-        // Regular paragraph
         if (inList) { html += '</ul>'; inList = false; }
         html += '<p>' + esc(line.trim()) + '</p>';
       }
@@ -571,7 +345,7 @@
       spinnerEl.style.display = 'none';
       if (window.location.protocol === 'file:') {
         errorEl.innerHTML =
-          '<p style="font-size:22px;font-weight:700;margin:0 0 8px;">\u26A0 Cannot load article from a local file</p>' +
+          '<p style="font-size:22px;font-weight:700;margin:0 0 8px;">⚠ Cannot load article from a local file</p>' +
           '<p style="color:var(--muted);font-size:14px;margin:0 0 8px;">Your browser blocks network requests when opening HTML files directly.</p>' +
           '<p style="color:var(--muted);font-size:14px;margin:0;"><strong>Fix:</strong> Install the <em>Live Server</em> extension in VS Code, right-click &rarr; "Open with Live Server".</p>';
       } else {
@@ -585,7 +359,7 @@
       errorEl.style.display = 'block';
     }
 
-    if (isNaN(articleId)) { showError('No article ID specified.'); return; }
+    if (!slugParam && isNaN(articleId)) { showError('No article specified.'); return; }
 
     fetch(ARTICLES_JSON)
       .then(function(r) {
@@ -599,15 +373,33 @@
           obj.index = idx;
           return obj;
         }).filter(function(a){ return a.title && String(a.title).trim(); });
-        console.log('[DYER] Articles loaded from', ARTICLES_JSON + ':', allArticles.length, '| Looking for id:', articleId);
 
-        var article = allArticles.find(function(a) { return a.index === articleId; });
-        if (!article) throw new Error('Article #' + articleId + ' not found');
+        // Resolve by slug first; fall back to the legacy index scheme.
+        var article;
+        if (slugParam) {
+          article = allArticles.find(function(a) { return a.slug === slugParam; });
+        } else {
+          article = allArticles.find(function(a) { return a.index === articleId; });
+        }
+        if (!article) throw new Error('Article not found');
 
-        // Page title
+        // Page title + social/share metadata
         document.title = article.title;
+        var canonicalSlug = article.slug
+          ? ('/article?slug=' + encodeURIComponent(article.slug) + (isLegacy ? '&legacy=1' : ''))
+          : ('/article?' + (isLegacy ? 'legacy=' : 'id=') + article.index);
+        var canonicalUrl = 'https://dubaiyoutheconomicsreview.app' + canonicalSlug;
+        var imgUrl = (article.image && article.image.trim())
+          ? ('https://dubaiyoutheconomicsreview.app/' + article.image.trim().replace(/^\//, ''))
+          : 'https://dubaiyoutheconomicsreview.app/article_images/uae_free_zones.jpg';
+        setMeta('metaCanonical', canonicalUrl);
+        setMeta('ogUrl', canonicalUrl);
+        setMeta('ogTitle', article.title);
+        setMeta('twTitle', article.title);
+        if (article.excerpt) { setMeta('ogDesc', article.excerpt); setMeta('twDesc', article.excerpt); }
+        setMeta('ogImage', imgUrl);
+        setMeta('twImage', imgUrl);
 
-        // Header
         spinnerEl.style.display = 'none';
 
         // Reading time estimate
@@ -625,7 +417,6 @@
           (article.excerpt ? '<p class="standfirst">' + esc(article.excerpt) + '</p>' : '') +
           (categoryText ? '<div class="article-category-pill"><a href="/articles" class="tag-pill">' + esc(categoryText) + '</a></div>' : '');
 
-        // Byline placed below hero image
         var authorRole = (article.position || '').trim() || 'Dubai Youth Economics Review Contributor';
         bylineEl.innerHTML =
           '<hr>' +
@@ -641,7 +432,7 @@
           heroEl.style.display = '';
         }
 
-        // Body — render as HTML when available, otherwise fallback to markdown support
+        // Body — render as HTML when available, otherwise markdown
         var bodyContent = article.body || '';
         bodyEl.innerHTML = (/<[a-z][\s\S]*>/i.test(bodyContent)) ? bodyContent : renderBody(bodyContent);
         bodyEl.style.display = '';
@@ -651,30 +442,23 @@
 
         endEl.style.display = '';
 
-        // More articles (random 3 others, with placeholder fallback)
-        var others = allArticles.filter(function(a) { return a.index !== articleId; });
+        // More articles — up to 3 random others (no placeholders)
+        var others = allArticles.filter(function(a) { return a !== article; });
         for (var i = others.length - 1; i > 0; i--) {
           var j = Math.floor(Math.random() * (i + 1));
           var tmp = others[i]; others[i] = others[j]; others[j] = tmp;
         }
         var more = others.slice(0, 3);
-        var placeholders = [
-          {index:-1, title:'The Hidden Cost of School Lunches', category:'Microeconomics', tagline:'', author:'Dubai Youth Economics Review', date:'Feb 2026', excerpt:'', image:''},
-          {index:-1, title:'Why Your Bus Fare Keeps Rising', category:'Policy', tagline:'', author:'Dubai Youth Economics Review', date:'Jan 2026', excerpt:'', image:''},
-          {index:-1, title:'Student Spending Habits: A Data Dive', category:'Data', tagline:'', author:'Dubai Youth Economics Review', date:'Mar 2026', excerpt:'', image:''}
-        ];
-        while (more.length < 3) {
-          more.push(placeholders[more.length]);
-        }
+        if (more.length === 0) { return; }
         moreGrid.innerHTML = '';
         more.forEach(function(a) {
           var mHasImg = a.image && a.image.trim();
           var mediaHTML = mHasImg
-            ? '<div class="article-card-media"><img src="' + esc(a.image.trim()) + '" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>'
+            ? '<div class="article-card-media"><img src="' + esc(a.image.trim()) + '" alt="' + esc(a.title) + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>'
             : '';
           var card = document.createElement('div');
           card.className = 'article-card';
-          var linkHref = a.index >= 0 ? ('/article?' + (isLegacy ? 'legacy=' : 'id=') + a.index) : '#';
+          var linkHref = DYER.articleHref(a, a.index, isLegacy);
           card.innerHTML =
             mediaHTML +
             '<div class="article-card-body">' +
@@ -693,7 +477,6 @@
   })();
   </script>
   <script>
-
     // Sidebar / article-divider overlap guard
     (function(){
       var sidebar = document.getElementById('shareSidebar');
@@ -748,12 +531,7 @@
       }
       var checkEl = document.querySelector('.scroll-progress .check-icon');
       if(checkEl) checkEl.style.stroke = pct >= 0.98 ? 'var(--accent)' : 'var(--muted)';
-    });
-    // Back to top
-    window.addEventListener('scroll', function(){ document.getElementById('backToTop').style.opacity = window.scrollY > 400 ? '1' : '0'; });
-    document.getElementById('backToTop').addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
-    // Ticker
-    (function(){ var items=document.querySelectorAll('.ticker-item'), i=0; if(items.length>1){ setInterval(function(){ items[i].classList.remove('ticker-active'); i=(i+1)%items.length; items[i].classList.add('ticker-active'); }, 3000); } })();
+    }, {passive:true});
   </script>
 </body>
 </html>

@@ -49,8 +49,29 @@ if ($imageFile) {
   $imagePath = "article_images/$($imageFile.Trim())"
 }
 
+function New-Slug($text, $existing) {
+  $s = ([string]$text).ToLower()
+  $s = $s -replace "['`u{2018}`u{2019}`"]", ''   # drop apostrophes / smart quotes
+  $s = $s -replace '[^a-z0-9]+', '-'             # any other run -> single hyphen
+  $s = $s.Trim('-')
+  if (-not $s) { $s = 'article' }
+  $base = $s; $n = 2
+  while ($existing -contains $s) { $s = "$base-$n"; $n++ }
+  return $s
+}
+
+$jsonRaw  = Get-Content -Path $legacyPath -Raw
+$articles = $jsonRaw | ConvertFrom-Json
+if (-not ($articles -is [System.Collections.IEnumerable])) {
+  Write-Error "legacy.json must contain an array."
+}
+
+$existingSlugs = @($articles | ForEach-Object { $_.slug })
+$slug = New-Slug $title $existingSlugs
+
 $article = [ordered]@{
   title          = $title.Trim()
+  slug           = $slug
   author         = $author.Trim()
   position       = $position
   date           = $date.Trim()
@@ -60,12 +81,6 @@ $article = [ordered]@{
   body           = $body
   special_report = $false
   editors_pick   = $false
-}
-
-$jsonRaw  = Get-Content -Path $legacyPath -Raw
-$articles = $jsonRaw | ConvertFrom-Json
-if (-not ($articles -is [System.Collections.IEnumerable])) {
-  Write-Error "legacy.json must contain an array."
 }
 
 $articles += $article

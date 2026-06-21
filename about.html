@@ -4,78 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About | Dubai Youth Economics Review</title>
-  <meta name="description" content="Dubai Youth Economics Review — student-led economic journalism. Independent reporting, data, and opinion.">
+  <meta name="description" content="About the Dubai Youth Economics Review — student-led economic journalism, our story, principles, and team.">
+
+  <!-- Canonical + social share metadata -->
+  <link rel="canonical" href="https://dubaiyoutheconomicsreview.app/about">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dubai Youth Economics Review">
+  <meta property="og:title" content="About | Dubai Youth Economics Review">
+  <meta property="og:description" content="Student-led economic journalism — our story, principles, and the team behind the Review.">
+  <meta property="og:url" content="https://dubaiyoutheconomicsreview.app/about">
+  <meta property="og:image" content="https://dubaiyoutheconomicsreview.app/article_images/uae_free_zones.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About | Dubai Youth Economics Review">
+  <meta name="twitter:description" content="Student-led economic journalism — our story, principles, and the team behind the Review.">
+  <meta name="twitter:image" content="https://dubaiyoutheconomicsreview.app/article_images/uae_free_zones.jpg">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <style>
-    /* ===== VARIABLES ===== */
-    :root{
-      --accent:#C1121F;
-      --accent-dark:#780000;
-      --bg:#ffffff;
-      --page-bg:#FAF8F5;
-      --text:#0B0B0B;
-      --muted:#6B6B6B;
-      --charcoal:#1F1F1F;
-      --max-width:1100px;
-    }
-
-    /* ===== RESET & BASE ===== */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    html,body{height:100%}
-    body{
-      font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-      color:var(--text);background:var(--page-bg);line-height:1.7;
-      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-    }
-    h1,h2,h3,h4{font-family:'Merriweather',serif;line-height:1.2}
-    img{max-width:100%;display:block}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:var(--max-width);margin:0 auto;padding:0 24px}
-
-    /* ===== ANNOUNCEMENT BAR ===== */
-    .announce-bar{background:var(--charcoal);color:#fff;text-align:center;font-size:11px;font-weight:600;padding:6px 0;letter-spacing:.4px}
-    .ticker-item{display:none}
-    .ticker-active{display:inline}
-
-    /* ===== HEADER ===== */
-    header{background:#fff;position:sticky;top:0;z-index:100;border-bottom:2px solid var(--accent)}
-    .top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;position:relative}
-    .brand{display:flex;align-items:center;gap:14px}
-    .brand-badge{
-      background:#C1121F;color:#fff;font-family:'Merriweather',Georgia,serif;
-      font-weight:900;font-size:22px;width:44px;height:44px;display:flex;
-      align-items:center;justify-content:center;border-radius:3px;flex-shrink:0;
-      line-height:1;text-decoration:none;
-    }
-    .brand-text{display:flex;flex-direction:column;gap:2px}
-    .mast{
-      font-family:'Merriweather',Georgia,serif;font-weight:900;font-size:22px;
-      color:var(--text);line-height:1;letter-spacing:.3px;
-    }
-    .tagline{
-      font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
-      color:var(--muted);
-    }
-    nav{display:flex;gap:28px;align-items:center}
-    nav a{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.3px;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid transparent;transition:all .25s ease}
-    nav a:hover{color:var(--text)}
-    nav a.active{color:var(--text);border-bottom-color:var(--accent)}
-    .menu-toggle{display:none;border:0;background:transparent;font-size:22px;cursor:pointer;padding:4px 8px}
-
-    /* Mobile nav */
-    nav.nav-open{
-      display:flex !important;flex-direction:column;position:absolute;
-      top:100%;left:0;right:0;background:#fff;border-bottom:2px solid var(--accent);
-      box-shadow:0 12px 32px rgba(0,0,0,.1);padding:8px 24px;gap:0;z-index:100;
-    }
-    nav.nav-open a{padding:16px 0;border-bottom:1px solid #f0f0f0;font-size:15px;width:100%;text-transform:none;letter-spacing:0}
-    nav.nav-open a:last-child{border-bottom:none}
+    /* ===== Page-specific: About ===== */
 
     /* ===== HERO ===== */
     .about-hero{
@@ -131,31 +83,18 @@
       color:rgba(193,18,31,.07);line-height:1;pointer-events:none;
       user-select:none;
     }
-    .value-card h3{
-      font-size:18px;font-weight:900;margin:0 0 10px;position:relative;
-    }
-    .value-card p{
-      color:var(--muted);font-size:14px;line-height:1.65;margin:0;position:relative;
-    }
+    .value-card h3{font-size:18px;font-weight:900;margin:0 0 10px;position:relative;}
+    .value-card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0;position:relative;}
 
     /* ===== TEAM MASTHEAD ===== */
-    .team-grid{
-      display:grid;grid-template-columns:repeat(4,1fr);gap:32px;
-    }
-    .team-card{
-      background:#fff;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease;
-    }
-    .team-card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 16px 48px rgba(0,0,0,.1);
-    }
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+    .team-card{background:#fff;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease;}
+    .team-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.1);}
     .team-avatar{
       width:100%;aspect-ratio:1/1;background:#e8e8e8;overflow:hidden;
       display:flex;align-items:center;justify-content:center;
     }
-    .team-avatar a{
-      display:block;width:100%;height:100%;line-height:0;
-    }
+    .team-avatar a{display:block;width:100%;height:100%;line-height:0;}
     .team-avatar img{
       width:100%;height:100%;object-fit:cover;object-position:top center;
       filter:grayscale(100%);transition:filter .4s ease;
@@ -194,13 +133,8 @@
     .btn-cta:hover span{margin-left:12px}
 
     /* ===== CONTACT ===== */
-    .contact-section{
-      display:block;
-    }
-    .contact-intro{
-      max-width:720px;margin:0 0 28px;color:var(--muted);
-      font-size:16px;line-height:1.7;
-    }
+    .contact-section{display:block;}
+    .contact-intro{max-width:720px;margin:0 0 28px;color:var(--muted);font-size:16px;line-height:1.7;}
     .contact-info h3{font-size:24px;font-weight:900;margin:0 0 16px}
     .contact-info > p{color:var(--muted);font-size:15px;line-height:1.7;margin:0 0 32px}
     .contact-item{margin-bottom:24px}
@@ -209,7 +143,6 @@
       color:var(--accent);margin:0 0 4px;display:block;
     }
     .contact-item span:last-child{font-size:16px;font-weight:600;color:var(--text)}
-
     .contact-form{max-width:640px;width:100%}
     .contact-form h3{font-size:24px;font-weight:900;margin:0 0 24px}
     .contact-form label{
@@ -226,8 +159,7 @@
     .contact-form input{margin-bottom:20px}
     .contact-form textarea{resize:vertical;min-height:120px;margin-bottom:24px}
     .contact-form input:focus,.contact-form textarea:focus{
-      outline:none;border-color:var(--accent);
-      box-shadow:0 0 0 3px rgba(193,18,31,.1);
+      outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(193,18,31,.1);
     }
     .contact-form input::placeholder,.contact-form textarea::placeholder{color:#aaa}
     .contact-form button{
@@ -240,74 +172,15 @@
     .contact-form button svg{width:16px;height:16px;fill:#fff;transition:transform .2s ease}
     .contact-form button:hover svg{transform:translateX(4px)}
 
-    /* ===== FOOTER ===== */
-    .site-footer{background:var(--charcoal);color:#d4d4d4;font-size:14px;line-height:1.6;border-top:4px solid var(--accent)}
-    .footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;padding:48px 0 36px}
-    .footer-newsletter h3,.footer-about h3,.footer-nav h3{color:#fff;font-size:16px;font-weight:800;margin:0 0 12px}
-    .footer-newsletter p,.footer-about p{margin:0 0 14px;color:#b0b0b0;font-size:13px}
-    .footer-subscribe{display:flex;gap:8px}
-    .footer-subscribe input[type="email"]{
-      flex:1;padding:10px 12px;border:1px solid #444;background:#2a2a2a;color:#eee;
-      font-size:14px;font-family:inherit;transition:border-color .2s,box-shadow .2s;
-      border-radius:0;-webkit-appearance:none;appearance:none;
-    }
-    .footer-subscribe input[type="email"]::placeholder{color:#777}
-    .footer-subscribe input[type="email"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(193,18,31,.25)}
-    .footer-subscribe button{
-      background:var(--accent);color:#fff;border:0;padding:10px 20px;
-      font-weight:700;font-size:14px;cursor:pointer;transition:background .2s;
-      white-space:nowrap;font-family:inherit;
-    }
-    .footer-subscribe button:hover{background:var(--accent-dark)}
-    .footer-badge{display:inline-flex;align-items:center;gap:8px;background:#2a2a2a;padding:8px 14px;margin-top:4px}
-    .footer-badge-icon{width:28px;height:28px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .footer-badge-icon svg{width:16px;height:16px;fill:#fff}
-    .footer-badge span{color:#ccc;font-size:12px;font-weight:600;letter-spacing:.3px}
-    .footer-nav-lists{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .footer-nav-lists h4{color:#fff;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0 0 10px}
-    .footer-nav-lists ul{list-style:none;margin:0;padding:0}
-    .footer-nav-lists li{margin-bottom:8px}
-    .footer-nav-lists a{color:#b0b0b0;text-decoration:none;font-size:13px;font-weight:600;transition:color .2s}
-    .footer-nav-lists a:hover{color:#fff}
-    .footer-bottom{border-top:1px solid #333;padding:16px 0}
-    .footer-bottom-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-    .footer-contact{font-size:12px;color:#888}
-    .footer-contact span{margin-right:14px}
-    .footer-contact span:last-child{margin-right:0}
-    .footer-policies{display:flex;gap:16px}
-    .footer-policies a{color:#888;text-decoration:none;font-size:12px;font-weight:600;transition:color .2s}
-    .footer-policies a:hover{color:#fff}
-    .footer-copyright{font-size:12px;color:#888}
-
-    /* ===== BACK TO TOP ===== */
-    #backToTop{
-      position:fixed;bottom:24px;right:24px;width:44px;height:44px;
-      background:var(--charcoal);color:#fff;border:0;font-size:20px;
-      cursor:pointer;opacity:0;transition:opacity .3s ease;z-index:90;
-      display:flex;align-items:center;justify-content:center;
-    }
-    #backToTop:hover{background:var(--accent)}
-
     /* ===== RESPONSIVE ===== */
     @media(max-width:960px){
-      header nav{display:none}
-      .menu-toggle{display:block}
       .about-hero{padding:72px 24px 64px}
       .about-hero h1{font-size:36px}
       .values-grid{grid-template-columns:1fr;gap:36px;max-width:480px}
       .team-grid{grid-template-columns:repeat(2,1fr);gap:24px}
       .contact-section{grid-template-columns:1fr;gap:40px}
-      .footer-top{grid-template-columns:1fr 1fr;gap:28px}
-      .footer-newsletter{grid-column:1 / -1}
-      .footer-subscribe{max-width:480px}
     }
     @media(max-width:600px){
-      .container{padding:0 16px}
-      .top{gap:10px;align-items:flex-start}
-      .brand{gap:10px}
-      .brand-badge{width:36px;height:36px;font-size:18px}
-      .mast{font-size:18px;line-height:1.1}
-      .tagline{font-size:9px;letter-spacing:1.5px}
       .about-hero{padding:56px 18px 48px}
       .about-hero h1{font-size:28px}
       .about-hero p{font-size:15px}
@@ -320,36 +193,13 @@
       .join-banner{padding:56px 18px}
       .join-banner h2{font-size:26px}
       .value-number{font-size:56px}
-      .footer-top{grid-template-columns:1fr;gap:24px;padding:28px 0 24px}
-      .footer-subscribe{flex-direction:column}
-      .footer-subscribe button{width:100%;text-align:center}
-      .footer-bottom-inner{flex-direction:column;text-align:center;gap:10px}
-      .footer-contact span{display:block;margin:0 0 4px}
-      .footer-policies{justify-content:center;flex-wrap:wrap}
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="announce-bar"><span class="ticker-item ticker-active">Student Publication &middot; Est. 2021</span><span class="ticker-item">New article every week</span><span class="ticker-item">dubaiyoutheconomicsreview@gmail.com</span></div>
-    <div class="container top">
-      <div class="brand">
-        <a href="/" class="brand-badge">D</a>
-        <div class="brand-text">
-          <span class="mast">Dubai Youth Economics Review</span>
-          <span class="tagline">Est. 2021 · Student Publication</span>
-        </div>
-      </div>
-      <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Toggle menu">&#9776;</button>
-      <nav id="siteNav" aria-label="Main navigation">
-        <a href="/">Home</a>
-        <a href="/articles">Articles</a>
-        <a href="/legacy">Legacy</a>
-        <a href="/about" class="active">About</a>
-      </nav>
-    </div>
-  </header>
+  <header id="siteHeader"></header>
+  <script>DYER.header('about');</script>
 
   <main>
 
@@ -557,79 +407,17 @@
               <button type="submit" id="contactBtn">Send Message <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14m-7-7 7 7-7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             </form>
           </div>
-
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container footer-top">
-      <section class="footer-newsletter" aria-label="Newsletter signup">
-        <h3>Stay Informed</h3>
-        <p>Get the latest from the Dubai Youth Economics Review delivered to your inbox every week — articles, data snapshots, and student commentary.</p>
-        <form class="footer-subscribe" id="subscribeForm">
-          <input type="email" id="subscribeEmail" placeholder="you@school.edu" aria-label="Email address" required />
-          <button type="submit">Subscribe</button>
-        </form>
-      </section>
-      <section class="footer-about" aria-label="About the publication">
-        <h3>Dubai Youth Economics Review</h3>
-        <p>Student-led economic journalism — researched, written, and edited entirely by students since 2021. Independent, curious, and committed to the truth.</p>
-        <div class="footer-badge">
-          <div class="footer-badge-icon" style="background:#C1121F; font-family:'Merriweather',Georgia,serif; font-weight:900; font-size:16px; color:#fff; display:flex; align-items:center; justify-content:center; border-radius:3px; width:32px; height:32px; flex-shrink:0;">D</div>
-          <span>Student Publication&ensp;·&ensp;Est. 2021</span>
-        </div>
-      </section>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <h3>Quick Links</h3>
-        <div class="footer-nav-lists">
-          <div>
-            <h4>Sections</h4>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/articles">Articles</a></li>
-              <li><a href="/legacy">Legacy</a></li>
-              <li><a href="/about">About</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="/legacy">Archive</a></li>
-              <li><a href="/about">Masthead</a></li>
-              <li><span style="color:#b0b0b0;font-size:13px;font-weight:600;">Data Hub</span></li>
-              <li><a href="/about#contactForm">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <div class="footer-bottom">
-      <div class="container footer-bottom-inner">
-        <div class="footer-contact">
-          <span>📧 dubaiyoutheconomicsreview@gmail.com</span>
-        </div>
-        <div class="footer-policies">
-          <span style="color:#888;font-size:12px;font-weight:600;">Privacy Policy</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Terms of Use</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Sitemap</span>
-          <span style="color:#888;font-size:12px;font-weight:600;">Accessibility</span>
-        </div>
-        <div class="footer-copyright">
-          &copy; 2026 Dubai Youth Economics Review. All rights reserved.
-        </div>
-      </div>
-    </div>
-  </footer>
+  <footer id="siteFooter" class="site-footer" role="contentinfo"></footer>
+  <script>DYER.footer();</script>
 
-  <script src="script.js"></script>
-  <button id="backToTop" aria-label="Back to top">&uarr;</button>
   <script>
-    // ── EmailJS Contact Form ──
-    // Replace these three values with your own from https://www.emailjs.com
+    // ── EmailJS Contact Form ── (public key — designed to be exposed)
     var EMAILJS_PUBLIC_KEY = 'rOuq0QgSUg3j7gyJi';
     var EMAILJS_SERVICE_ID = 'service_yhehlan';
     var EMAILJS_TEMPLATE_ID = 'template_nwhhios';
@@ -666,13 +454,6 @@
           }, 3000);
         });
     });
-  </script>
-  <script>
-    window.addEventListener('scroll',function(){document.getElementById('backToTop').style.opacity=window.scrollY>400?'1':'0';});
-    document.getElementById('backToTop').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
-    (function(){var items=document.querySelectorAll('.ticker-item'),i=0;if(items.length>1){setInterval(function(){items[i].classList.remove('ticker-active');i=(i+1)%items.length;items[i].classList.add('ticker-active');},3000);}})();
-    // Prefetch articles JSON so Home page loads instantly
-    (function(){var u='articles.json';fetch(u).then(function(r){return r.json();}).then(function(t){try{localStorage.setItem('dyerArticles',JSON.stringify(t));}catch(e){}}).catch(function(){});})();
   </script>
 </body>
 </html>
