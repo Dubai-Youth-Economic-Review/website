@@ -68,7 +68,7 @@
     .article-card-body .excerpt{color:#444;font-size:13px;line-height:1.5;margin:0}
 
     @media (max-width:960px){
-      .articles-grid{grid-template-columns:1fr}
+      .articles-grid{grid-template-columns:repeat(2,1fr)}
       .filter-tabs{gap:6px}
       .filter-tabs button{padding:6px 14px;font-size:12px}
     }
@@ -76,6 +76,7 @@
       .articles-grid{grid-template-columns:repeat(2, 1fr)}
     }
     @media (max-width:600px){
+      .articles-grid{grid-template-columns:1fr}
       .page-header h1{font-size:26px}
     }
   </style>

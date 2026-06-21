@@ -93,7 +93,7 @@
     .contrib-banner .count small{display:block;font-size:12px;color:var(--muted);font-weight:600;margin-top:4px}
 
     @media (max-width:960px){
-      .legacy-grid{grid-template-columns:1fr}
+      .legacy-grid{grid-template-columns:repeat(2,1fr)}
       .contrib-banner{flex-direction:column;text-align:center}
       .year-tabs{gap:6px}
       .year-tabs button{padding:6px 14px;font-size:12px}
@@ -103,6 +103,7 @@
       .legacy-grid{grid-template-columns:repeat(2, 1fr)}
     }
     @media (max-width:600px){
+      .legacy-grid{grid-template-columns:1fr}
       .page-header h1{font-size:26px}
       .year-heading{font-size:18px}
       .contrib-banner{padding:22px 18px}
